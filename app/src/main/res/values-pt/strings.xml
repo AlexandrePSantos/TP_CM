@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TrabPratico</string>
+    <string name="action_settings">Definições</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Primeiro Fragment</string>
+    <string name="second_fragment_label">Segundo Fragment</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+
+    <string name="lorem_ipsum">Exemplo</string>
+</resources>
