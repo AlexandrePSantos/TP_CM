@@ -1,0 +1,53 @@
+Requisitos Funcionais:
+
+1. Intro sliders:
+A aplicação deve apresentar slides introdutórios para os novos utilizadores explicando a funcionalidade da aplicação.
+
+2. Criar conta:
+Os utilizadores devem ter a capacidade de criar uma nova conta no aplicação fornecendo informações como nome, username, email, fotografia e senha.
+
+3.Iniciar sessão:
+Os utilizadores devem poder fazer login.
+
+4.Gestão de perfil:
+Os utilizadores devem poder visualizar e editar seu perfil, incluindo informações como nome, username, email, fotografia e senha.
+
+5.Tipos de perfil:
+Deve haver pelo menos três tipos de perfis: Administrador, Gestor de Projeto e Utilizador.
+
+6.Administração:
+O administrador deve ter a capacidade de criar, editar e remover projetos.
+O administrador pode gerenciar os perfis dos utilizadores e dos gestores de projeto.
+O administrador pode associar um gestor de projeto a um projeto.
+O administrador pode exportar estatísticas por utilizador, projeto ou tarefa.
+
+7.Gestor de Projeto:
+O gestor de projeto deve ser capaz de associar tarefas a projetos.
+O gestor de projeto deve poder atribuir utilizadores a projetos e suas respectivas tarefas.
+O gestor de projeto pode visualizar as tarefas concluídas e por concluir de um projeto.
+O gestor de projeto pode marcar o projeto como concluído e avaliar o desempenho de cada utilizador.
+O gestor de projeto pode exportar estatísticas por utilizador, projeto ou tarefa.
+
+8.Utilizador:
+O utilizador associado a uma tarefa em um projeto deve ser capaz de registrar detalhes como data, local, taxa de conclusão e tempo gasto na realização da tarefa.
+O utilizador pode associar observações e fotografias às tarefas conforme necessário.
+O utilizador pode marcar a tarefa como concluída.
+O utilizador pode visualizar uma lista de tarefas a serem realizadas e o histórico de tarefas concluídas.
+
+---//------//---
+Requisitos Não Funcionais:
+
+1.Armazenamento local:
+Os dados devem ser gravados localmente em casos de não conexão com a internet e sincronizados posteriormente com a API.
+
+2.Conectividade:
+A aplicação deve ser capaz de comunicar com uma API para sincronização de dados quando conectado à internet.
+
+3.Segurança:
+A API deve ser segura para garantir a privacidade e integridade dos dados dos utilizadores.
+
+4.Desempenho:
+A aplicação deve ser responsiva e eficiente, mesmo com grandes conjuntos de dados e operações de sincronização.
+
+5.Usabilidade:
+A interface deve ser intuitiva e fácil de usar para todos os tipos de utilizador.
