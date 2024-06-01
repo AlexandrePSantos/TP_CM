@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
-import com.example.trabpratico.network.RetrofitClient
 import com.example.trabpratico.network.RegisterRequest
 import retrofit2.Call
 import retrofit2.Callback
