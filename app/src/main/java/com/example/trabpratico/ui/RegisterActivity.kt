@@ -2,11 +2,13 @@ package com.example.trabpratico.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
 import com.example.trabpratico.network.RegisterRequest
+import androidx.appcompat.app.AlertDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,19 +37,48 @@ class RegisterActivity : AppCompatActivity() {
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
-                            // Navegar para a tela de login após o registro bem-sucedido
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            // Se o registro for bem-sucedido, mostrar o popup de sucesso
+                            showSuccessPopup()
+                            // Redirecionar para a LoginActivity após o registro bem-sucedido
+                            redirectToLogin()
                         } else {
-                            // Mostrar erro de registro
+                            // Se houver um erro na resposta, mostrar o popup de erro
+                            showErrorPopup()
+                            // Registre o código de erro para depuração
+                            Log.e("API Error", "Failed to register: ${response.code()}")
                         }
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
-                        // Mostrar erro de registro
+                        // Se houver uma falha na chamada, mostrar o popup de erro
+                        showErrorPopup()
+                        // Registre a exceção para depuração
+                        Log.e("API Error", "Registration call failed", t)
                     }
                 })
         }
+    }
+
+    private fun showSuccessPopup() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Registration Successful")
+        builder.setMessage("You have successfully registered.")
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun showErrorPopup() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Registration Failed")
+        builder.setMessage("There was an error during registration.")
+        builder.setPositiveButton("OK", null)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun redirectToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

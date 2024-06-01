@@ -8,8 +8,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.network.LoginRequest
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,22 +36,6 @@ class LoginActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             // Se a resposta for bem-sucedida, mostrar o popup de sucesso
                             showSuccessPopup()
-
-                            // Chamar a função getUsers() após o login bem-sucedido
-                            RetrofitClient.instance.getUsers().enqueue(object : Callback<Void> {
-                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                    if (response.isSuccessful) {
-                                        val responseBody = response.body()?.toString()
-                                        Log.d("API Response", "Response body: $responseBody")
-                                    } else {
-                                        Log.e("API Error", "Failed to login: ${response.code()}")
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<Void>, t: Throwable) {
-                                    // Se houver uma falha na chamada, trate-a aqui
-                                }
-                            })
                         } else {
                             // Se houver um erro na resposta, mostrar o popup de erro
                             showErrorPopup()

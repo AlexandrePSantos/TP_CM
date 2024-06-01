@@ -5,7 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-data class RegisterRequest(val name: String, val username: String, val email: String, val password: String)
+data class RegisterRequest(val name: String, val username: String, val email: String, val password: String, val idType: Int = 3)
 data class LoginRequest(val email: String, val password: String)
 
 interface ApiService {
