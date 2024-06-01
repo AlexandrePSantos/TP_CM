@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://api-4pd81iv2o-alexandres-projects-d97edc96.vercel.app/api/cm/"
+    private const val BASE_URL = "https://api-ii1u7tzni-alexandres-projects-d97edc96.vercel.app/api/cm/"
 
     private var authToken: String? = null
 
@@ -48,3 +48,4 @@ object RetrofitClient {
         retrofit.create(ApiService::class.java)
     }
 }
+
