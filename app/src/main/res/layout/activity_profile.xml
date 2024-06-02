@@ -4,13 +4,70 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Outros elementos de UI para visualizar e editar informações do usuário -->
+    <!-- Campo para photo (apenas um exemplo, pode ser implementado com um ImageView e um botão para selecionar a foto) -->
+    <ImageView
+        android:id="@+id/photoImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_profile_placeholder"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_profile_placeholder" />
 
+    <Button
+        android:id="@+id/changePhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/photoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/change_photo" />
+
+    <!-- Campo para username -->
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/changePhotoButton"
+        android:layout_marginTop="16dp"
+        android:hint="@string/username" />
+
+    <!-- Campo para name -->
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameEditText"
+        android:layout_marginTop="16dp"
+        android:hint="@string/name" />
+
+    <!-- Campo para password -->
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameEditText"
+        android:layout_marginTop="16dp"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <!-- Botão de confirmar -->
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordEditText"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/confirm"
+        android:textColor="@android:color/white" />
+
+    <!-- Botão de logout -->
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/confirmButton"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/red"
         android:text="@string/logout"

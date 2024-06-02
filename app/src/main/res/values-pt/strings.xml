@@ -20,4 +20,9 @@
     <string name="logout">Sair</string>
     <string name="hello_blank_fragment">Olá fragmento vazio</string>
     <string name="profile">Perfil</string>
+    <string name="change_photo">Trocar foto</string>
+    <string name="username">Nome de utilizador</string>
+    <string name="name">Nome</string>
+    <string name="password">Senha</string>
+    <string name="confirm">Confirmar</string>
 </resources>

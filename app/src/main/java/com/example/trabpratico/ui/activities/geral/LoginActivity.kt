@@ -46,11 +46,12 @@ class LoginActivity : AppCompatActivity() {
                             if (!token.isNullOrEmpty()) {
                                 Log.d("LoginActivity", "Token extracted: $token")
 
-                                // Armazene o token no RetrofitClient
-                                RetrofitClient.setAuthToken(token)
-
                                 // Armazene o ID do usuário
                                 userId = loginResponse.idUser
+
+                                // Armazene o token no RetrofitClient
+                                RetrofitClient.setAuthToken(token)
+                                RetrofitClient.setUserId(userId)
 
                                 // Se o login for bem-sucedido, obtenha o tipo de usuário usando o token e o idUser
                                 getUserType()

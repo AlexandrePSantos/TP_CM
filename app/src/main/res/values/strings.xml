@@ -21,4 +21,10 @@
 
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
+    <string name="change_photo">Change photo</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="confirm">Confirm</string>
+
 </resources>
