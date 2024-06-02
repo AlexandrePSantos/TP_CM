@@ -1,6 +1,9 @@
-package com.example.trabpratico.ui.activities
+package com.example.trabpratico.ui.activities.geral
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
@@ -11,24 +14,38 @@ import com.example.trabpratico.ui.fragments.UtilizadorFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var userTypeTextView: TextView
+    private lateinit var profileButton: ImageButton
+    private lateinit var logoutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         userTypeTextView = findViewById(R.id.userTypeTextView)
+        profileButton = findViewById(R.id.profileButton)
+        logoutButton = findViewById(R.id.logoutButton)
 
-        // Aqui você obtém o tipo de usuário (idType) que foi retornado após o login
+        profileButton.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener {
+            // Simular o logout limpando as preferências compartilhadas ou redirecionando para a tela de login
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+
         val idType = getUserType()
 
-        // Dependendo do tipo de usuário, define o fragmento correspondente
         when (idType) {
             1 -> showAdminFragment()
             2 -> showManagerFragment()
             else -> showNormalUserFragment()
         }
 
-        // Configurar o texto do TextView com o tipo de usuário em negrito
         userTypeTextView.text = when (idType) {
             1 -> "Admin"
             2 -> "Manager"
@@ -41,21 +58,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAdminFragment() {
-        // Aqui você pode carregar e exibir o fragmento do Admin
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, AdminFragment())
             .commit()
     }
 
     private fun showManagerFragment() {
-        // Aqui você pode carregar e exibir o fragmento do Gestor
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, GestorFragment())
             .commit()
     }
 
     private fun showNormalUserFragment() {
-        // Aqui você pode carregar e exibir o fragmento do Utilizador Normal
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, UtilizadorFragment())
             .commit()

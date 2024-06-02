@@ -15,11 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrabPratico"
         tools:targetApi="31">
-        <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.LoginActivity" />
-        <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.geral.RegisterActivity" />
+        <activity android:name=".ui.activities.geral.LoginActivity" />
+        <activity android:name=".ui.activities.geral.MainActivity" />
+        <activity android:name=".ui.activities.geral.ProfileActivity" />
         <activity
-            android:name=".ui.activities.IntroActivity"
+            android:name=".ui.activities.geral.IntroActivity"
             android:exported="true"
             android:theme="@style/Theme.TrabPratico">
             <intent-filter>

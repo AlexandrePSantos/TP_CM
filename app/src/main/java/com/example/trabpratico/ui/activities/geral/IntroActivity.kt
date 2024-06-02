@@ -1,4 +1,4 @@
-package com.example.trabpratico.ui.activities
+package com.example.trabpratico.ui.activities.geral
 
 import android.content.Intent
 import android.os.Bundle

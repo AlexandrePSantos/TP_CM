@@ -1,5 +1,6 @@
-package com.example.trabpratico.ui.activities
+package com.example.trabpratico.ui.activities.geral
 
+import RetrofitClient
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -34,7 +35,10 @@ class LoginActivity : AppCompatActivity() {
 
             RetrofitClient.instance.login(request)
                 .enqueue(object : Callback<LoginResponse> {
-                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    override fun onResponse(
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
+                    ) {
                         if (response.isSuccessful) {
                             val loginResponse = response.body()
                             val token = loginResponse?.token
@@ -76,7 +80,10 @@ class LoginActivity : AppCompatActivity() {
         // Obtenha o tipo de usuário após o login bem-sucedido
         userId?.let {
             RetrofitClient.instance.getUserById(it).enqueue(object : Callback<UserDetailsResponse> {
-                override fun onResponse(call: Call<UserDetailsResponse>, response: Response<UserDetailsResponse>) {
+                override fun onResponse(
+                    call: Call<UserDetailsResponse>,
+                    response: Response<UserDetailsResponse>
+                ) {
                     if (response.isSuccessful) {
                         val idType = response.body()?.idType
                         if (idType != null) {

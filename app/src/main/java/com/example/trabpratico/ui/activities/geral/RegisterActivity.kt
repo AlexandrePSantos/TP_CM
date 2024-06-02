@@ -1,14 +1,15 @@
-package com.example.trabpratico.ui.activities
+package com.example.trabpratico.ui.activities.geral
 
+import RetrofitClient
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
 import com.example.trabpratico.network.RegisterRequest
-import androidx.appcompat.app.AlertDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

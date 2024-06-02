@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.model.SlideItem
 
-class SlideAdapter(private val slides: List<SlideItem>) : RecyclerView.Adapter<SlideAdapter.SlideViewHolder>() {
+class SlideAdapter(private val slides: List<SlideItem>) :
+    RecyclerView.Adapter<SlideAdapter.SlideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlideViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.slide_layout, parent, false)
