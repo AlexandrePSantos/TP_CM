@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL =
-        "https://api-7vxn8qe5o-alexandres-projects-d97edc96.vercel.app/api/cm/"
+        "https://api-gbgx6b1s7-alexandres-projects-d97edc96.vercel.app/api/cm/"
 
     private var authToken: String? = null
     private var userId: Int? = null // Adicione uma variável para armazenar o ID do usuário

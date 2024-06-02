@@ -98,7 +98,6 @@ class ProfileActivity : AppCompatActivity() {
                             val idType = userDetailsResponse.idType
 
                             val userUpdate = UserUpdate(
-                                id = userId,
                                 username = username,
                                 name = name,
                                 password = password,
