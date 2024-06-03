@@ -26,5 +26,6 @@
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="confirm">Confirm</string>
+    <string name="sync">Sync</string>
 
 </resources>
