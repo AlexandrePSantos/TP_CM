@@ -20,6 +20,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var confirmButton: Button
     private lateinit var logoutButton: Button
+    private lateinit var changePhotoButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class ProfileActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         confirmButton = findViewById(R.id.confirmButton)
         logoutButton = findViewById(R.id.logoutButton)
+        changePhotoButton = findViewById(R.id.changePhotoButton)
 
         confirmButton.setOnClickListener {
             updateProfile()
@@ -37,6 +39,10 @@ class ProfileActivity : AppCompatActivity() {
 
         logoutButton.setOnClickListener {
             logout()
+        }
+
+        changePhotoButton.setOnClickListener {
+            changePhoto()
         }
 
         fetchUserDetails()
@@ -152,6 +158,10 @@ class ProfileActivity : AppCompatActivity() {
         builder.setPositiveButton("OK", null)
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun changePhoto() {
+        // Implementar funcionalidade de troca de foto do perfil
     }
 
     private fun logout() {
