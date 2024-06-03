@@ -47,13 +47,13 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d("LoginActivity", "Token extracted: $token")
 
                                 // Armazene o ID do usuário
-                                userId = loginResponse.idUser
+                                userId = loginResponse.iduser
 
                                 // Armazene o token no RetrofitClient
                                 RetrofitClient.setAuthToken(token)
                                 RetrofitClient.setUserId(userId)
 
-                                // Se o login for bem-sucedido, obtenha o tipo de usuário usando o token e o idUser
+                                // Se o login for bem-sucedido, obtenha o tipo de usuário usando o token e o iduser
                                 getUserType()
                             } else {
                                 Log.e("LoginActivity", "Token is empty or null")
@@ -86,15 +86,15 @@ class LoginActivity : AppCompatActivity() {
                     response: Response<UserDetailsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        val idType = response.body()?.idType
-                        if (idType != null) {
-                            // Se a resposta for bem-sucedida e o idType for obtido com sucesso,
+                        val idtype = response.body()?.idtype
+                        if (idtype != null) {
+                            // Se a resposta for bem-sucedida e o idtype for obtido com sucesso,
                             // mostrar o popup de sucesso e redirecionar para a MainActivity
                             showSuccessPopup()
-                            Log.d("User Type", "User type: $idType")
-                            redirectToMain(idType)
+                            Log.d("User Type", "User type: $idtype")
+                            redirectToMain(idtype)
                         } else {
-                            // Se não for possível obter o idType, mostrar o popup de erro
+                            // Se não for possível obter o idtype, mostrar o popup de erro
                             showErrorPopup()
                         }
                     } else {
@@ -135,9 +135,9 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun redirectToMain(idType: Int) {
+    private fun redirectToMain(idtype: Int) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("idType", idType)
+        intent.putExtra("idtype", idtype)
         startActivity(intent)
         finish()
     }

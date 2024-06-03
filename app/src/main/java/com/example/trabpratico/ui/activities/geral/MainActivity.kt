@@ -38,15 +38,15 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        val idType = getUserType()
+        val idtype = getUserType()
 
-        when (idType) {
+        when (idtype) {
             1 -> showAdminFragment()
             2 -> showManagerFragment()
             else -> showNormalUserFragment()
         }
 
-        userTypeTextView.text = when (idType) {
+        userTypeTextView.text = when (idtype) {
             1 -> "Admin"
             2 -> "Manager"
             else -> "Normal User"
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUserType(): Int {
-        return intent.getIntExtra("idType", -1)
+        return intent.getIntExtra("idtype", -1)
     }
 
     private fun showAdminFragment() {

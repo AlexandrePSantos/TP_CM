@@ -95,14 +95,14 @@ class ProfileActivity : AppCompatActivity() {
                         val userDetailsResponse = response.body()
                         if (userDetailsResponse != null) {
                             val email = userDetailsResponse.email
-                            val idType = userDetailsResponse.idType
+                            val idtype = userDetailsResponse.idtype
 
                             val userUpdate = UserUpdate(
                                 username = username,
                                 name = name,
                                 password = password,
                                 email = email,
-                                idType = idType
+                                idtype = idtype
                             )
 
                             apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {

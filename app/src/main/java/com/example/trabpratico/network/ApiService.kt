@@ -14,7 +14,7 @@ data class RegisterRequest(
     val username: String,
     val email: String,
     val password: String,
-    val idType: Int = 3
+    val idtype: Int = 3
 )
 data class LoginRequest(
     val email: String,
@@ -25,32 +25,32 @@ data class UserUpdate(
     val username: String,
     val email: String,
     val password: String,
-    val idType: Int
+    val idtype: Int
 )
 data class UserTypeRequest(
     val type: String
 )
 data class ProjectRequest(
-    val nameProject: String,
-    val startDateP: String?,
-    val endDateP: String?,
-    val idState: Int,
-    val idUser: Int,
-    val completionStatus: Boolean,
-    val performanceReview: String?,
+    val nameproject: String,
+    val startdatep: String?,
+    val enddatep: String?,
+    val idstate: Int,
+    val iduser: Int,
+    val completionstatus: Boolean,
+    val performancereview: String?,
     val obs: String?
 )
 data class TaskRequest(
-    val nameTask: String,
-    val startDateT: String?,
-    val endDateT: String?,
-    val idProject: Int,
-    val idState: Int,
+    val nametask: String,
+    val startdatet: String?,
+    val enddatet: String?,
+    val idproject: Int,
+    val idstate: Int,
     val photo: String?,
-    val timeSpend: String?,
+    val timespend: String?,
     val local: String?,
     val taxes: Double?,
-    val completionRate: Double?,
+    val completionrate: Double?,
     val photos: String?,
     val observations: String?
 )
@@ -61,48 +61,48 @@ data class StateRequest(
 // Response classes
 data class LoginResponse(
     val token: String,
-    val idUser: Int
+    val iduser: Int
 )
 data class UserDetailsResponse(
     val id: Int,
     val name: String,
     val username: String,
     val email: String,
-    val idType: Int,
+    val idtype: Int,
     val password: String
 )
 data class UserTypeResponse(
-    val idType: Int,
+    val idtype: Int,
     val type: String
 )
 data class ProjectResponse(
-    val idProject: Int,
-    val nameProject: String,
-    val startDateP: String?,
-    val endDateP: String?,
-    val idState: Int,
-    val idUser: Int,
-    val completionStatus: Boolean,
-    val performanceReview: String?,
+    val idproject: Int,
+    val nameproject: String,
+    val startdatep: String?,
+    val enddatep: String?,
+    val idstate: Int,
+    val iduser: Int,
+    val completionstatus: Boolean,
+    val performancereview: String?,
     val obs: String?
 )
 data class TaskResponse(
-    val idTask: Int,
-    val nameTask: String,
-    val startDateT: String?,
-    val endDateT: String?,
-    val idProject: Int,
-    val idState: Int,
+    val idtask: Int,
+    val nametask: String,
+    val startdatet: String?,
+    val enddatet: String?,
+    val idproject: Int,
+    val idstate: Int,
     val photo: String?,
-    val timeSpend: String?,
+    val timespend: String?,
     val local: String?,
     val taxes: Double?,
-    val completionRate: Double?,
+    val completionrate: Double?,
     val photos: String?,
     val observations: String?
 )
 data class StateResponse(
-    val idState: Int,
+    val idstate: Int,
     val state: String
 )
 
@@ -117,60 +117,60 @@ interface ApiService {
     // User
     @GET("user")
     fun getAllUsers(): Call<List<UserDetailsResponse>>
-    @GET("user/{idUser}")
-    fun getUserById(@Path("idUser") idUser: Int): Call<UserDetailsResponse>
+    @GET("user/{iduser}")
+    fun getUserById(@Path("iduser") iduser: Int): Call<UserDetailsResponse>
     @POST("user/create")
     fun createUser(@Body user: RegisterRequest): Call<Void>
-    @PUT("user/update/{idUser}")
-    fun updateUser(@Path("idUser") userId: Int, @Body userUpdate: UserUpdate): Call<Void>
-    @DELETE("user/delete/{idUser}")
-    fun deleteUser(@Path("idUser") userId: Int): Call<Void>
+    @PUT("user/update/{iduser}")
+    fun updateUser(@Path("iduser") userId: Int, @Body userUpdate: UserUpdate): Call<Void>
+    @DELETE("user/delete/{iduser}")
+    fun deleteUser(@Path("iduser") userId: Int): Call<Void>
 
     // UserType
     @GET("userType")
     fun getAllUserTypes(): Call<List<UserTypeResponse>>
-    @GET("userType/{idType}")
-    fun getUserTypeById(@Path("idType") idType: Int): Call<UserTypeResponse>
+    @GET("userType/{idtype}")
+    fun getUserTypeById(@Path("idtype") idtype: Int): Call<UserTypeResponse>
     @POST("userType/create")
     fun createUserType(@Body userType: UserTypeRequest): Call<Void>
-    @PUT("userType/update/{idType}")
-    fun updateUserType(@Path("idType") idType: Int, @Body userType: UserTypeRequest): Call<Void>
-    @DELETE("userType/delete/{idType}")
-    fun deleteUserType(@Path("idType") idType: Int): Call<Void>
+    @PUT("userType/update/{idtype}")
+    fun updateUserType(@Path("idtype") idtype: Int, @Body userType: UserTypeRequest): Call<Void>
+    @DELETE("userType/delete/{idtype}")
+    fun deleteUserType(@Path("idtype") idtype: Int): Call<Void>
 
     // Project
     @GET("project")
     fun getAllProjects(): Call<List<ProjectResponse>>
-    @GET("project/{idProject}")
-    fun getProjectById(@Path("idProject") idProject: Int): Call<ProjectResponse>
+    @GET("project/{idproject}")
+    fun getProjectById(@Path("idproject") idproject: Int): Call<ProjectResponse>
     @POST("project/create")
     fun createProject(@Body project: ProjectRequest): Call<Void>
-    @PUT("project/update/{idProject}")
-    fun updateProject(@Path("idProject") idProject: Int, @Body project: ProjectRequest): Call<Void>
-    @DELETE("project/delete/{idProject}")
-    fun deleteProject(@Path("idProject") idProject: Int): Call<Void>
+    @PUT("project/update/{idproject}")
+    fun updateProject(@Path("idproject") idproject: Int, @Body project: ProjectRequest): Call<Void>
+    @DELETE("project/delete/{idproject}")
+    fun deleteProject(@Path("idproject") idproject: Int): Call<Void>
 
     // Task
     @GET("task")
     fun getAllTasks(): Call<List<TaskResponse>>
-    @GET("task/{idTask}")
-    fun getTaskById(@Path("idTask") idTask: Int): Call<TaskResponse>
+    @GET("task/{idtask}")
+    fun getTaskById(@Path("idtask") idtask: Int): Call<TaskResponse>
     @POST("task/create")
     fun createTask(@Body task: TaskRequest): Call<Void>
-    @PUT("task/update/{idTask}")
-    fun updateTask(@Path("idTask") idTask: Int, @Body task: TaskRequest): Call<Void>
-    @DELETE("task/delete/{idTask}")
-    fun deleteTask(@Path("idTask") idTask: Int): Call<Void>
+    @PUT("task/update/{idtask}")
+    fun updateTask(@Path("idtask") idtask: Int, @Body task: TaskRequest): Call<Void>
+    @DELETE("task/delete/{idtask}")
+    fun deleteTask(@Path("idtask") idtask: Int): Call<Void>
 
     // State
     @GET("state")
     fun getAllStates(): Call<List<StateResponse>>
-    @GET("state/{idState}")
-    fun getStateById(@Path("idState") idState: Int): Call<StateResponse>
+    @GET("state/{idstate}")
+    fun getStateById(@Path("idstate") idstate: Int): Call<StateResponse>
     @POST("state/create")
     fun createState(@Body state: StateRequest): Call<Void>
-    @PUT("state/update/{idState}")
-    fun updateState(@Path("idState") idState: Int, @Body state: StateRequest): Call<Void>
-    @DELETE("state/delete/{idState}")
-    fun deleteState(@Path("idState") idState: Int): Call<Void>
+    @PUT("state/update/{idstate}")
+    fun updateState(@Path("idstate") idstate: Int, @Body state: StateRequest): Call<Void>
+    @DELETE("state/delete/{idstate}")
+    fun deleteState(@Path("idstate") idstate: Int): Call<Void>
 }
