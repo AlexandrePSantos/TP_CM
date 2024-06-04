@@ -6,22 +6,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
 import com.example.trabpratico.R
 import com.example.trabpratico.network.UserDetailsResponse
 import com.example.trabpratico.network.UserUpdate
-import com.example.trabpratico.room.db.AppDatabase
-import com.example.trabpratico.room.entities.user
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -31,7 +21,6 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var confirmButton: Button
     private lateinit var logoutButton: Button
     private lateinit var changePhotoButton: Button
-    private lateinit var syncButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +32,6 @@ class ProfileActivity : AppCompatActivity() {
         confirmButton = findViewById(R.id.confirmButton)
         logoutButton = findViewById(R.id.logoutButton)
         changePhotoButton = findViewById(R.id.changePhotoButton)
-        syncButton = findViewById(R.id.syncButton)
 
         confirmButton.setOnClickListener {
             updateProfile()
@@ -53,8 +41,8 @@ class ProfileActivity : AppCompatActivity() {
             logout()
         }
 
-        syncButton.setOnClickListener {
-            syncData()
+        changePhotoButton.setOnClickListener {
+            changePhoto()
         }
 
         fetchUserDetails()
@@ -98,6 +86,11 @@ class ProfileActivity : AppCompatActivity() {
         val name = nameEditText.text.toString().trim()
         val password = if (passwordEditText.text.toString() == "••••••••") passwordEditText.tag.toString() else passwordEditText.text.toString().trim()
 
+        if (username.isEmpty() || name.isEmpty() || password.isEmpty()) {
+            showErrorPopup("Todos os campos são obrigatórios.")
+            return
+        }
+
         val userId = RetrofitClient.getUserId()
 
         if (userId != null) {
@@ -118,30 +111,10 @@ class ProfileActivity : AppCompatActivity() {
                                 idtype = idtype
                             )
 
-                            if (isOnline(applicationContext)) {
                             apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {
                                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                     if (response.isSuccessful) {
                                         showSuccessPopup()
-
-                                        // Store the updated user in the local database
-                                        val db = Room.databaseBuilder(
-                                            applicationContext,
-                                            AppDatabase::class.java, "ProjectManagerDB"
-                                        ).build()
-                                        val updatedUser = user(
-                                            iduser = userId,
-                                            username = username,
-                                            name = name,
-                                            password = password,
-                                            email = email,
-                                            idtype = idtype,
-                                            last_login = null,
-                                            photo = null
-                                        )
-                                        CoroutineScope(Dispatchers.IO).launch {
-                                            db.appDao().insertUser(updatedUser)
-                                        }
                                     } else {
                                         showErrorPopup("Falha na atualização do perfil. Por favor, tente novamente.")
                                     }
@@ -150,9 +123,7 @@ class ProfileActivity : AppCompatActivity() {
                                 override fun onFailure(call: Call<Void>, t: Throwable) {
                                     showErrorPopup("Erro ao atualizar perfil. Verifique sua conexão com a internet e tente novamente.")
                                 }
-                            })} else {
-                                showErrorPopup("Erro ao atualizar perfil. Verifique sua conexão com a internet e tente novamente.")
-                            }
+                            })
                         } else {
                             showErrorPopup("Erro ao obter detalhes do usuário. Por favor, tente novamente.")
                         }
@@ -189,69 +160,8 @@ class ProfileActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork ?: return false
-            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-            return activeNetwork.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        } else {
-            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
-            return networkInfo.isConnected
-        }
-    }
-
-    private fun syncData() {
-        // Get a reference to the Room database
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "ProjectManagerDB"
-        ).build()
-
-        // Use a coroutine to perform database operations off the main thread
-        CoroutineScope(Dispatchers.IO).launch {
-            // Get the user from the local database
-            val userId = RetrofitClient.getUserId()
-            val user = userId?.let { db.appDao().getUserById(it) }
-
-            // Make an API call to update the user on the server
-            val apiService = RetrofitClient.instance
-            val userUpdate = user?.let {
-                user.username?.let { it1 ->
-                    user.name?.let { it2 ->
-                        UserUpdate(
-                            username = it1,
-                            name = it2,
-                            password = user.password,
-                            email = user.email,
-                            idtype = it.idtype
-                        )
-                    }
-                }
-            }
-            if (userId != null) {
-                if (userUpdate != null) {
-                    apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {
-                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            if (response.isSuccessful) {
-                                // If the API call is successful, remove the user from the local database
-                                CoroutineScope(Dispatchers.IO).launch {
-                                    db.appDao().deleteUser(user)
-                                }
-                            } else {
-                                // Handle error
-                            }
-                        }
-
-                        override fun onFailure(call: Call<Void>, t: Throwable) {
-                            // Handle error
-                        }
-                    })
-                }
-            }
-            // If the API call is successful, remove the entity from the local database
-            // TODO: Check the result of the API call and remove the entity from the local database if successful
-        }
+    private fun changePhoto() {
+        // Implementar funcionalidade de troca de foto do perfil
     }
 
     private fun logout() {
