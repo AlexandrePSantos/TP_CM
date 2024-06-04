@@ -3,6 +3,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Delete
 import com.example.trabpratico.room.entities.project
 import com.example.trabpratico.room.entities.synclog
 import com.example.trabpratico.room.entities.task
@@ -22,6 +23,9 @@ interface AppDao {
 
     @Update
     fun updateUser(user: user)
+
+    @Delete
+    fun deleteUser(user: user)
 
     // Project
     @Query("SELECT * FROM project")
