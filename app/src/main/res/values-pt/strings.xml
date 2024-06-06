@@ -25,4 +25,14 @@
     <string name="name">Nome</string>
     <string name="password">Senha</string>
     <string name="confirm">Confirmar</string>
+    <string name="projects">Projetos</string>
+    <string name="add_project">Adicionar projetos</string>
+    <string name="list_projects">Listar Projetos</string>
+    <string name="users">Utilizadores</string>
+    <string name="add_users">Adicionar utilizadores</string>
+    <string name="list_users">Listar utilizadores</string>
+    <string name="statistics">Estatísticas</string>
+    <string name="list_stats_user">Listar Estatísticas por Utilizador</string>
+    <string name="list_stats_project">Listar Estatísticas por Projeto</string>
+    <string name="list_stats_task">Listar Estatísticas por Tarefa</string>
 </resources>
