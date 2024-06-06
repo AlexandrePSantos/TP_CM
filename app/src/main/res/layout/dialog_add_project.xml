@@ -14,11 +14,15 @@
         android:id="@+id/editTextStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Start Date"/>
+        android:hint="Start Date"
+        android:focusable="false"
+        android:clickable="true"/>
 
     <EditText
         android:id="@+id/editTextEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Date"/>
+        android:hint="End Date"
+        android:focusable="false"
+        android:clickable="true"/>
 </LinearLayout>

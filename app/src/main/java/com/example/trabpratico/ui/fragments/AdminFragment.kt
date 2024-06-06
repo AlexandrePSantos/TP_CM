@@ -1,6 +1,6 @@
 package com.example.trabpratico.ui.fragments
 
-import ProjectAdapter
+
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.example.trabpratico.R
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.ProjectRequest
 import com.example.trabpratico.network.ProjectResponse
+import com.example.trabpratico.ui.adapters.ProjectAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,36 +34,12 @@ class AdminFragment : Fragment() {
 
         apiService = RetrofitClient.instance
 
-        setupRecyclerView(view)
-
-        val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject)
+        val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject1)
         buttonAddProject.setOnClickListener {
             showAddProjectDialog()
         }
 
-        fetchProjects()
-
         return view
-    }
-
-    private fun setupRecyclerView(view: View) {
-        projectAdapter = ProjectAdapter()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewProjects)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = projectAdapter
-
-        projectAdapter.setOnItemClickListener(object : ProjectAdapter.OnItemClickListener {
-            override fun onItemClick(project: ProjectResponse) {
-                showEditProjectDialog(project)
-            }
-        })
-
-        projectAdapter.setOnItemLongClickListener(object : ProjectAdapter.OnItemLongClickListener {
-            override fun onItemLongClick(project: ProjectResponse): Boolean {
-                removeProject(project)
-                return true
-            }
-        })
     }
 
     private fun showAddProjectDialog() {

@@ -1,12 +1,18 @@
+package com.example.trabpratico.ui.adapters
+
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trabpratico.databinding.ItemProjectBinding
+import com.example.trabpratico.R
 import com.example.trabpratico.network.ProjectResponse
 
-class ProjectAdapter : ListAdapter<ProjectResponse, ProjectAdapter.ProjectViewHolder>(DiffCallback()) {
+class ProjectAdapter : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
+
+    private var projects: List<ProjectResponse> = emptyList()
+    private var onItemClickListener: OnItemClickListener? = null
+    private var onItemLongClickListener: OnItemLongClickListener? = null
 
     interface OnItemClickListener {
         fun onItemClick(project: ProjectResponse)
@@ -16,54 +22,49 @@ class ProjectAdapter : ListAdapter<ProjectResponse, ProjectAdapter.ProjectViewHo
         fun onItemLongClick(project: ProjectResponse): Boolean
     }
 
-    private var listener: OnItemClickListener? = null
-    private var longClickListener: OnItemLongClickListener? = null
+    inner class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
+        private val textViewStartDate: TextView = itemView.findViewById(R.id.textViewStartDate)
+        private val textViewEndDate: TextView = itemView.findViewById(R.id.textViewEndDate)
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
+        fun bind(project: ProjectResponse) {
+            textViewName.text = project.nameproject
+            textViewStartDate.text = project.startdatep
+            textViewEndDate.text = project.enddatep
 
-    fun setOnItemLongClickListener(longClickListener: OnItemLongClickListener) {
-        this.longClickListener = longClickListener
+            itemView.setOnClickListener {
+                onItemClickListener?.onItemClick(project)
+            }
+
+            itemView.setOnLongClickListener {
+                onItemLongClickListener?.onItemLongClick(project) ?: false
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val binding = ItemProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProjectViewHolder(binding)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_project, parent, false)
+        return ProjectViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
-        val currentItem = getItem(position)
-        holder.bind(currentItem)
-
-        holder.itemView.setOnClickListener {
-            listener?.onItemClick(currentItem)
-        }
-
-        holder.itemView.setOnLongClickListener {
-            longClickListener?.onItemLongClick(currentItem) ?: false
-        }
+        holder.bind(projects[position])
     }
 
-    class ProjectViewHolder(private val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(project: ProjectResponse) {
-            binding.textViewProjectName.text = project.nameproject
-            binding.textViewStartDate.text = project.startdatep
-            binding.textViewEndDate.text = project.enddatep
-            binding.textViewState.text = project.idstate.toString() // Consider converting state ID to state name if necessary
-            binding.textViewCompletionStatus.text = if (project.completionstatus) "Completed" else "Incomplete"
-            binding.textViewPerformanceReview.text = project.performancereview ?: "No review"
-            binding.textViewObs.text = project.obs ?: "No observations"
-        }
+    override fun getItemCount(): Int {
+        return projects.size
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<ProjectResponse>() {
-        override fun areItemsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem.idproject == newItem.idproject
-        }
+    fun submitList(projects: List<ProjectResponse>) {
+        this.projects = projects
+        notifyDataSetChanged()
+    }
 
-        override fun areContentsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem == newItem
-        }
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
+    }
+
+    fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
+        onItemLongClickListener = listener
     }
 }

@@ -8,6 +8,7 @@ import com.example.trabpratico.databinding.ActivityAdminBinding
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.ProjectRequest
 import com.example.trabpratico.network.ProjectResponse
+import com.example.trabpratico.ui.adapters.ProjectAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

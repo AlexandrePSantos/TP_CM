@@ -5,25 +5,25 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textViewName"
+    <EditText
+        android:id="@+id/editTextProjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Project Name"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:hint="Project Name"/>
 
-    <TextView
-        android:id="@+id/textViewStartDate"
+    <EditText
+        android:id="@+id/editTextStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Date"
-        android:textSize="14sp"/>
+        android:hint="Start Date"
+        android:focusable="false"
+        android:clickable="true"/>
 
-    <TextView
-        android:id="@+id/textViewEndDate"
+    <EditText
+        android:id="@+id/editTextEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="End Date"
-        android:textSize="14sp"/>
+        android:hint="End Date"
+        android:focusable="false"
+        android:clickable="true"/>
 </LinearLayout>
