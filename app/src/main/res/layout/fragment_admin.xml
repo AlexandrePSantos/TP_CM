@@ -4,11 +4,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FRAGMENT_ADMIN"/>
     <Button
         android:id="@+id/buttonAddProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Project"/>
+
+    <Button
+        android:id="@+id/buttonAddUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add User"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProjects"
