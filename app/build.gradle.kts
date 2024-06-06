@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("org.jetbrains.kotlin.kapt") // Apply the kapt plugin
 }
 
 android {
@@ -36,6 +35,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -63,7 +63,7 @@ dependencies {
 
     // Room for local database
     implementation("androidx.room:room-runtime:2.4.0")
-    kapt("androidx.room:room-compiler:2.4.0")
+    //kapt("androidx.room:room-compiler:2.4.0")
     implementation("androidx.room:room-ktx:2.4.0")
 
     // Coroutine

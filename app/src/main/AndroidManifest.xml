@@ -19,6 +19,7 @@
         <activity android:name=".ui.activities.geral.LoginActivity" />
         <activity android:name=".ui.activities.geral.MainActivity" />
         <activity android:name=".ui.activities.geral.ProfileActivity" />
+        <activity android:name=".ui.Admin.AdminActivity" />
         <activity
             android:name=".ui.activities.geral.IntroActivity"
             android:exported="true"
