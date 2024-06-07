@@ -73,11 +73,11 @@ data class LoginResponse(
 )
 data class UserDetailsResponse(
     val id: Int,
-    val name: String,
-    val username: String,
-    val email: String,
+    var name: String,
+    var username: String,
+    var email: String,
     val idtype: Int,
-    val password: String
+    var password: String
 )
 data class UserTypeResponse(
     val idtype: Int,

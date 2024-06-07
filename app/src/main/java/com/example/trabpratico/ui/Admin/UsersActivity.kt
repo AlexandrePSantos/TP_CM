@@ -1,0 +1,68 @@
+package com.example.trabpratico.ui
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trabpratico.databinding.ActivityUsersBinding
+import com.example.trabpratico.network.ApiService
+import com.example.trabpratico.network.UserDetailsResponse
+import com.example.trabpratico.ui.Admin.EditUserActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class UsersActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityUsersBinding
+    private lateinit var apiService: ApiService
+    private val userAdapter = UserAdapter(
+        UserAdapter.UserClickListener(
+            editClickListener = { user ->
+                val intent = Intent(this, EditUserActivity::class.java)
+                intent.putExtra("USER_ID", user.id)
+                startActivity(intent)
+            },
+            deleteClickListener = { user ->
+
+            }
+        )
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        apiService = RetrofitClient.instance
+
+        binding.recyclerViewUsers.apply {
+            layoutManager = LinearLayoutManager(this@UsersActivity)
+            adapter = userAdapter
+        }
+
+        fetchUsers()
+    }
+
+    private fun fetchUsers() {
+        apiService.getAllUsers().enqueue(object : Callback<List<UserDetailsResponse>> {
+            override fun onResponse(
+                call: Call<List<UserDetailsResponse>>,
+                response: Response<List<UserDetailsResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        userAdapter.submitList(it)
+                    }
+                } else {
+                    Toast.makeText(this@UsersActivity, "Failed to fetch users", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserDetailsResponse>>, t: Throwable) {
+                Toast.makeText(this@UsersActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+}

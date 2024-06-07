@@ -2,6 +2,7 @@ package com.example.trabpratico.ui.fragments
 
 import ProjectAdapter
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.trabpratico.network.ProjectRequest
 import com.example.trabpratico.network.ProjectResponse
 import com.example.trabpratico.network.RegisterRequest
 import com.example.trabpratico.network.RegisterRequestAdmin
+import com.example.trabpratico.ui.UsersActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +46,11 @@ class AdminFragment : Fragment() {
         val buttonAddUser = view.findViewById<Button>(R.id.buttonAddUser)
         buttonAddUser.setOnClickListener {
             showAddUserDialog()
+        }
+        val buttonListUsers = view.findViewById<Button>(R.id.buttonListUsers)
+        buttonListUsers.setOnClickListener {
+            val intent = Intent(activity, UsersActivity::class.java)
+            startActivity(intent)
         }
 
         return view
@@ -237,21 +244,8 @@ class AdminFragment : Fragment() {
 
         dialog.show()
     }
-
-    private fun addUser(
-        name: String,
-        username: String,
-        email: String,
-        password: String,
-        idtype: Int
-    ) {
-        val userRequest = RegisterRequestAdmin(
-            name,
-            username,
-            email,
-            password,
-            idtype
-        )
+    private fun addUser(name: String, username: String, email: String, password: String, idtype: Int) {
+        val userRequest = RegisterRequestAdmin(name, username, email, password, idtype)
 
         apiService.createUser(userRequest).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -267,4 +261,6 @@ class AdminFragment : Fragment() {
             }
         })
     }
+
+
 }

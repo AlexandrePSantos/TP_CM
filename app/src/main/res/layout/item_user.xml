@@ -1,0 +1,61 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="user"
+            type="com.example.trabpratico.network.UserDetailsResponse" />
+        <variable
+            name="clickListener"
+            type="com.example.trabpratico.ui.UserAdapter.UserClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{user.name}"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{() -> clickListener.onEditClick(user)}" />
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{user.email}"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintTop_toBottomOf="@+id/user_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/user_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{user.username}"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintTop_toBottomOf="@+id/user_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{() -> clickListener.onDeleteClick(user)}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
