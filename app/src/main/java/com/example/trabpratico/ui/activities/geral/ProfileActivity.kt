@@ -86,11 +86,6 @@ class ProfileActivity : AppCompatActivity() {
         val name = nameEditText.text.toString().trim()
         val password = if (passwordEditText.text.toString() == "••••••••") passwordEditText.tag.toString() else passwordEditText.text.toString().trim()
 
-        if (username.isEmpty() || name.isEmpty() || password.isEmpty()) {
-            showErrorPopup("Todos os campos são obrigatórios.")
-            return
-        }
-
         val userId = RetrofitClient.getUserId()
 
         if (userId != null) {
