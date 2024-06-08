@@ -86,11 +86,6 @@ class ProfileActivity : AppCompatActivity() {
         val name = nameEditText.text.toString().trim()
         val password = if (passwordEditText.text.toString() == "••••••••") passwordEditText.tag.toString() else passwordEditText.text.toString().trim()
 
-        if (username.isEmpty() || name.isEmpty() || password.isEmpty()) {
-            showErrorPopup("Todos os campos são obrigatórios.")
-            return
-        }
-
         val userId = RetrofitClient.getUserId()
 
         if (userId != null) {
@@ -101,14 +96,13 @@ class ProfileActivity : AppCompatActivity() {
                         val userDetailsResponse = response.body()
                         if (userDetailsResponse != null) {
                             val email = userDetailsResponse.email
-                            val idtype = userDetailsResponse.idtype
 
                             val userUpdate = UserUpdate(
                                 username = username,
                                 name = name,
-                                password = password,
                                 email = email,
-                                idtype = idtype
+                                password = password,
+                                idtype = userDetailsResponse.idtype
                             )
 
                             apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {

@@ -29,11 +29,12 @@ data class LoginRequest(
     val password: String
 )
 data class UserUpdate(
+
     val name: String,
     val username: String,
     val email: String,
     val password: String,
-    val idtype: Int
+    var idtype: Int
 )
 data class UserTypeRequest(
     val type: String
@@ -76,7 +77,7 @@ data class UserDetailsResponse(
     var name: String,
     var username: String,
     var email: String,
-    val idtype: Int,
+    var idtype: Int,
     var password: String
 )
 data class UserTypeResponse(

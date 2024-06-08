@@ -79,22 +79,29 @@ class EditUserFragment : Fragment() {
     private fun updateUserDetails() {
         val user = binding.user ?: return
         val userUpdate = UserUpdate(
-            name = user.name,
-            username = user.username,
-            email = user.email,
-            password = user.password,
+            name = user.name ?: "",
+            username = user.username ?: "",
+            email = user.email ?: "",
+            password = user.password ?: "",
             idtype = user.idtype
         )
+        Log.d("EditUserFragment", "Updating user with payload: $userUpdate")
+
         apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(context, "User updated successfully", Toast.LENGTH_SHORT).show()
                 } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("EditUserFragment", "API request failed with code: ${response.code()}")
+                    Log.e("EditUserFragment", "Error response: $errorBody")
+                    Log.e("EditUserFragment", "User ID: ${userId.toString()}")
                     Toast.makeText(context, "Failed to update user", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("EditUserFragment", "Error updating user: ${t.message}")
                 Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
