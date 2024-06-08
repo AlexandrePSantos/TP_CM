@@ -38,11 +38,7 @@ class UserAdapter(private val clickListener: UserClickListener) : ListAdapter<Us
         }
     }
 
-    class UserClickListener(
-        val editClickListener: (user: UserDetailsResponse) -> Unit,
-        val deleteClickListener: (user: UserDetailsResponse) -> Unit
-    ) {
-        fun onEditClick(user: UserDetailsResponse) = editClickListener(user)
-        fun onDeleteClick(user: UserDetailsResponse) = deleteClickListener(user)
+    class UserClickListener(val clickListener: (user: UserDetailsResponse) -> Unit) {
+        fun onClick(user: UserDetailsResponse) = clickListener(user)
     }
 }

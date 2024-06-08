@@ -17,18 +17,11 @@ class UsersActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUsersBinding
     private lateinit var apiService: ApiService
-    private val userAdapter = UserAdapter(
-        UserAdapter.UserClickListener(
-            editClickListener = { user ->
-                val intent = Intent(this, EditUserActivity::class.java)
-                intent.putExtra("USER_ID", user.id)
-                startActivity(intent)
-            },
-            deleteClickListener = { user ->
-
-            }
-        )
-    )
+    private val userAdapter = UserAdapter(UserAdapter.UserClickListener { user ->
+        val intent = Intent(this, EditUserActivity::class.java)
+        intent.putExtra("USER_ID", user.id)
+        startActivity(intent)
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

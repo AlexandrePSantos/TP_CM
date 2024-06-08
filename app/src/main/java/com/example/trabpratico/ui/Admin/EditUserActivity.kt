@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
 import com.example.trabpratico.ui.fragments.EditUserFragment
 
+
 class EditUserActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

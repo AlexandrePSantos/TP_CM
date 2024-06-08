@@ -58,6 +58,7 @@ class EditUserFragment : Fragment() {
                     response.body()?.let { user ->
                         binding.user = user
                     }
+                    Toast.makeText(context, "User details loaded successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Failed to load user details", Toast.LENGTH_SHORT).show()
                 }
@@ -98,7 +99,7 @@ class EditUserFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(context, "User deleted successfully", Toast.LENGTH_SHORT).show()
-                    activity?.finish()
+                    activity?.supportFragmentManager?.popBackStack()
                 } else {
                     Toast.makeText(context, "Failed to delete user", Toast.LENGTH_SHORT).show()
                 }
