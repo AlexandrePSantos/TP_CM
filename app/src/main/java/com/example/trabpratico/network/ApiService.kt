@@ -29,13 +29,13 @@ data class LoginRequest(
     val password: String
 )
 data class UserUpdate(
-
     val name: String,
     val username: String,
     val email: String,
-    val password: String,
+    val password: String? = null,
     var idtype: Int
 )
+
 data class UserTypeRequest(
     val type: String
 )
