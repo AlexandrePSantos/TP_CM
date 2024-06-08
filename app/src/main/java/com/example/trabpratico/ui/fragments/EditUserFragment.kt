@@ -22,7 +22,6 @@ class EditUserFragment : Fragment() {
     private lateinit var binding: FragmentEditUserBinding
     private lateinit var apiService: ApiService
     private var userId: Int = -1
-    private var originalPassword: String? = null
 
     companion object {
         private const val ARG_USER_ID = "user_id"
@@ -63,7 +62,6 @@ class EditUserFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { user ->
                         binding.user = user
-                        originalPassword = user.password
                         Log.d("EditUserFragment", "User details: $user")
                     } ?: Log.e("EditUserFragment", "User object is null!") // Log if user is null
                 } else {
@@ -80,11 +78,6 @@ class EditUserFragment : Fragment() {
 
     private fun updateUserDetails() {
         val user = binding.user ?: return
-
-        // Use the original password
-        val password = originalPassword
-
-
 
         val userUpdate = UserUpdate(
             name = user.name ?: "",
