@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <string-array name="idTypeArray">
+            <item>Administrador</item>
             <item>Gestor</item>
             <item>Utilizador</item>
         </string-array>

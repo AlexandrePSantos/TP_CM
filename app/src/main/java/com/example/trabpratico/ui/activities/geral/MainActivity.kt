@@ -29,10 +29,8 @@ class MainActivity : AppCompatActivity() {
         profileButton = findViewById(R.id.profileButton)
         logoutButton = findViewById(R.id.logoutButton)
 
-        // Retrieve the username from intent or other data source
         userName = intent.getStringExtra("userName") ?: "User"
 
-        // Set the welcome message
         userTypeTextView.text = "Welcome, $userName!"
 
         profileButton.setOnClickListener {
@@ -41,14 +39,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         logoutButton.setOnClickListener {
-            // Simular o logout limpando as preferências compartilhadas ou redirecionando para a tela de login
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
 
-        // Obtenha o tipo de usuário do Intent
         val idtype = intent.getIntExtra("idtype", -1)
         if (idtype != -1) {
             when (idtype) {
@@ -65,12 +61,10 @@ class MainActivity : AppCompatActivity() {
                     userTypeTextView.text = "Utilizador"
                 }
                 else -> {
-                    // Tipo de usuário desconhecido
                     userTypeTextView.text = "Unknown User Type"
                 }
             }
         } else {
-            // Caso idtype não tenha sido passado corretamente
             userTypeTextView.text = "User Type Not Found"
         }
     }
@@ -80,45 +74,6 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.menu_admin -> {
-                // Exibir o fragmento de administração
-                showAdminFragment()
-                true
-            }
-            R.id.menu_gestor -> {
-                // Exibir o fragmento do gestor
-                showManagerFragment()
-                true
-            }
-            R.id.menu_utilizador -> {
-                // Exibir o fragmento do utilizador
-                showNormalUserFragment()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showAdminFragment() {
-        replaceFragment(AdminFragment())
-    }
-
-    private fun showManagerFragment() {
-        replaceFragment(GestorFragment())
-    }
-
-    private fun showNormalUserFragment() {
-        replaceFragment(UtilizadorFragment())
     }
 
     private fun replaceFragment(fragment: Fragment) {
