@@ -2,6 +2,7 @@ package com.example.trabpratico.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,7 @@ class UsersActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
     private val userAdapter = UserAdapter(UserAdapter.UserClickListener { user ->
         val intent = Intent(this, EditUserActivity::class.java)
-        intent.putExtra("USER_ID", user.id)
+        intent.putExtra("USER_ID", user.iduser)
         startActivity(intent)
     })
 
@@ -48,8 +49,12 @@ class UsersActivity : AppCompatActivity() {
                     response.body()?.let {
                         userAdapter.submitList(it)
                     }
+                    // Log the raw API response
+                    Log.d("UsersActivity", "API response: ${response.body()}")
+
                 } else {
                     Toast.makeText(this@UsersActivity, "Failed to fetch users", Toast.LENGTH_SHORT).show()
+                    Log.e("UsersActivity", "Failed to fetch users: ${response.code()}")
                 }
             }
 

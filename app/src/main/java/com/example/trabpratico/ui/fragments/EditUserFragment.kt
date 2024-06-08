@@ -1,6 +1,8 @@
 package com.example.trabpratico.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import com.example.trabpratico.databinding.FragmentEditUserBinding
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.UserDetailsResponse
 import com.example.trabpratico.network.UserUpdate
+import com.example.trabpratico.ui.UsersActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,14 +55,17 @@ class EditUserFragment : Fragment() {
     }
 
     private fun loadUserDetails(userId: Int) {
+        Log.d("EditUserFragment", "----Received userId: $userId")
         apiService.getUserById(userId).enqueue(object : Callback<UserDetailsResponse> {
             override fun onResponse(call: Call<UserDetailsResponse>, response: Response<UserDetailsResponse>) {
+                Log.d("EditUserFragment", "Raw API response: ${response.raw()}") // Log raw response
                 if (response.isSuccessful) {
                     response.body()?.let { user ->
                         binding.user = user
-                    }
-                    Toast.makeText(context, "User details loaded successfully", Toast.LENGTH_SHORT).show()
+                        Log.d("EditUserFragment", "User details: $user")
+                    } ?: Log.e("EditUserFragment", "User object is null!") // Log if user is null
                 } else {
+                    Log.e("EditUserFragment", "API request failed with code: ${response.code()}")
                     Toast.makeText(context, "Failed to load user details", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -100,6 +106,7 @@ class EditUserFragment : Fragment() {
                 if (response.isSuccessful) {
                     Toast.makeText(context, "User deleted successfully", Toast.LENGTH_SHORT).show()
                     activity?.supportFragmentManager?.popBackStack()
+                    navigateToUsersActivity()
                 } else {
                     Toast.makeText(context, "Failed to delete user", Toast.LENGTH_SHORT).show()
                 }
@@ -110,4 +117,11 @@ class EditUserFragment : Fragment() {
             }
         })
     }
+
+    private fun navigateToUsersActivity() {
+        val intent = Intent(activity, UsersActivity::class.java)
+        startActivity(intent)
+        activity?.finish() // Finalizar a atividade atual
+    }
 }
+

@@ -72,7 +72,7 @@ data class LoginResponse(
     val iduser: Int
 )
 data class UserDetailsResponse(
-    val id: Int,
+    val iduser: Int,
     var name: String,
     var username: String,
     var email: String,

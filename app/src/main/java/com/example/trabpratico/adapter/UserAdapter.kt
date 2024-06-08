@@ -1,5 +1,6 @@
 package com.example.trabpratico.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,7 @@ class UserAdapter(private val clickListener: UserClickListener) : ListAdapter<Us
 
     companion object DiffCallback : DiffUtil.ItemCallback<UserDetailsResponse>() {
         override fun areItemsTheSame(oldItem: UserDetailsResponse, newItem: UserDetailsResponse): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.iduser == newItem.iduser
         }
 
         override fun areContentsTheSame(oldItem: UserDetailsResponse, newItem: UserDetailsResponse): Boolean {
@@ -27,6 +28,8 @@ class UserAdapter(private val clickListener: UserClickListener) : ListAdapter<Us
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = getItem(position)
+        // Log the user ID here
+        Log.d("UserAdapter", "User ID at position $position: ${user.iduser}")
         holder.bind(user, clickListener)
     }
 
