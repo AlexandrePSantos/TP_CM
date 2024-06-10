@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_admin"
-        android:title="Admin" />
+        android:title="Admin"
+        />
     <item
         android:id="@+id/menu_gestor"
-        android:title="Gestor" />
+        android:title="Gestor"
+        />
     <item
         android:id="@+id/menu_utilizador"
-        android:title="Utilizador" />
+        android:title="Utilizador"
+        />
 </menu>

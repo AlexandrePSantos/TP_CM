@@ -1,23 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.geral.MainActivity">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/userTypeTextView"
+    <Button
+        android:id="@+id/buttonAddProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Type"
-        android:textSize="18sp"
-        android:layout_margin="16dp"/>
+        android:text="Add Project"/>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProjects"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-
 </LinearLayout>

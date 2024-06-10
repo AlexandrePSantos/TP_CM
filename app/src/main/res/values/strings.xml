@@ -26,5 +26,15 @@
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="confirm">Confirm</string>
+    <string name="projects">Projects</string>
+    <string name="add_project">Add Project</string>
+    <string name="list_projects">List Projects</string>
+    <string name="users">Users</string>
+    <string name="add_users">Add Users</string>
+    <string name="list_users">list Users</string>
+    <string name="statistics">Statistics</string>
+    <string name="list_stats_user">list Statistics By User</string>
+    <string name="list_stats_project">list Statistics By Project</string>
+    <string name="list_stats_task">list Statistics By Task</string>
 
 </resources>

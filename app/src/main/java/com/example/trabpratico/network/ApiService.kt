@@ -173,4 +173,9 @@ interface ApiService {
     fun updateState(@Path("idstate") idstate: Int, @Body state: StateRequest): Call<Void>
     @DELETE("state/delete/{idstate}")
     fun deleteState(@Path("idstate") idstate: Int): Call<Void>
+
+    @GET("projects")
+    fun getProjects(): Call<List<ProjectResponse>>
+
+
 }

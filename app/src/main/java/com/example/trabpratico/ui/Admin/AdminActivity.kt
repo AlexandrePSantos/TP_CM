@@ -1,18 +1,10 @@
-package com.example.trabpratico.ui.fragments
-
-
-import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.trabpratico.R
+import com.example.trabpratico.databinding.ActivityAdminBinding
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.ProjectRequest
 import com.example.trabpratico.network.ProjectResponse
@@ -21,37 +13,64 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdminFragment : Fragment() {
+class AdminActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAdminBinding
     private lateinit var apiService: ApiService
     private lateinit var projectAdapter: ProjectAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_admin, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         apiService = RetrofitClient.instance
 
-        val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject1)
-        buttonAddProject.setOnClickListener {
+        setupRecyclerView()
+
+        binding.buttonAddProject.setOnClickListener {
             showAddProjectDialog()
         }
 
-        return view
+        fetchProjects()
     }
 
-    private fun showAddProjectDialog() {
-        val inflater = LayoutInflater.from(requireContext())
-        val dialogView = inflater.inflate(R.layout.dialog_add_project, null)
-        val inputName = dialogView.findViewById<EditText>(R.id.editTextProjectName)
-        val inputStartDate = dialogView.findViewById<EditText>(R.id.editTextStartDate)
-        val inputEndDate = dialogView.findViewById<EditText>(R.id.editTextEndDate)
+    private fun setupRecyclerView() {
+        projectAdapter = ProjectAdapter()
+        binding.recyclerViewProjects.apply {
+            layoutManager = LinearLayoutManager(this@AdminActivity)
+            adapter = projectAdapter
+        }
 
-        val dialog = AlertDialog.Builder(requireContext())
+        // Defina o ouvinte de clique passando uma instância da interface OnItemClickListener
+        projectAdapter.setOnItemClickListener(object : ProjectAdapter.OnItemClickListener {
+            override fun onItemClick(project: ProjectResponse) {
+                // Aqui você pode lidar com o evento de clique do item
+                showEditProjectDialog(project)
+            }
+        })
+
+        // Defina o ouvinte de clique longo passando uma instância da interface OnItemClickListener
+        projectAdapter.setOnItemLongClickListener(object : ProjectAdapter.OnItemLongClickListener {
+            override fun onItemLongClick(project: ProjectResponse): Boolean {
+                // Aqui você pode lidar com o evento de clique longo do item
+                removeProject(project)
+                return true
+            }
+        })
+    }
+
+
+
+
+    private fun showAddProjectDialog() {
+        val inputName = EditText(this)
+        val inputStartDate = EditText(this)
+        val inputEndDate = EditText(this)
+
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Add Project")
-            .setView(dialogView)
+            .setView(inputName)
             .setPositiveButton("Add") { _, _ ->
                 val name = inputName.text.toString()
                 val startDate = inputStartDate.text.toString()
@@ -67,19 +86,17 @@ class AdminFragment : Fragment() {
     }
 
     private fun showEditProjectDialog(project: ProjectResponse) {
-        val inflater = LayoutInflater.from(requireContext())
-        val dialogView = inflater.inflate(R.layout.dialog_edit_project, null)
-        val inputName = dialogView.findViewById<EditText>(R.id.editTextProjectName)
-        val inputStartDate = dialogView.findViewById<EditText>(R.id.editTextStartDate)
-        val inputEndDate = dialogView.findViewById<EditText>(R.id.editTextEndDate)
+        val inputName = EditText(this)
+        val inputStartDate = EditText(this)
+        val inputEndDate = EditText(this)
 
         inputName.setText(project.nameproject)
         inputStartDate.setText(project.startdatep)
         inputEndDate.setText(project.enddatep)
 
-        val dialog = AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Edit Project")
-            .setView(dialogView)
+            .setView(inputName)
             .setPositiveButton("Save") { _, _ ->
                 val name = inputName.text.toString()
                 val startDate = inputStartDate.text.toString()
@@ -99,18 +116,18 @@ class AdminFragment : Fragment() {
             name,
             startDate,
             endDate,
-            idstate = 1,
-            iduser = RetrofitClient.getUserId() ?: -1,
-            completionstatus = false,
-            performancereview = null,
-            obs = null
+            idstate = 1, // Defina o estado conforme necessário
+            iduser = RetrofitClient.getUserId() ?: -1, // Obtenha o ID do usuário autenticado
+            completionstatus = false, // Defina conforme necessário
+            performancereview = null, // Defina conforme necessário
+            obs = null // Defina conforme necessário
         )
 
         apiService.createProject(projectRequest).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     showToast("Project added successfully")
-                    fetchProjects()
+                    fetchProjects() // Atualize a lista de projetos após a adição bem-sucedida
                 } else {
                     showToast("Failed to add project")
                 }
@@ -138,7 +155,7 @@ class AdminFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     showToast("Project updated successfully")
-                    fetchProjects()
+                    fetchProjects() // Atualize a lista de projetos após a edição bem-sucedida
                 } else {
                     showToast("Failed to update project")
                 }
@@ -155,7 +172,7 @@ class AdminFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     showToast("Project removed successfully")
-                    fetchProjects()
+                    fetchProjects() // Atualize a lista de projetos após a remoção bem-sucedida
                 } else {
                     showToast("Failed to remove project")
                 }
@@ -166,6 +183,7 @@ class AdminFragment : Fragment() {
             }
         })
     }
+
 
     private fun fetchProjects() {
         apiService.getAllProjects().enqueue(object : Callback<List<ProjectResponse>> {
@@ -186,6 +204,6 @@ class AdminFragment : Fragment() {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
