@@ -1,5 +1,6 @@
 package com.example.trabpratico.network
 
+import androidx.constraintlayout.widget.R
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -16,6 +17,13 @@ data class RegisterRequest(
     val password: String,
     val idtype: Int = 3
 )
+data class RegisterRequestAdmin(
+    val name: String,
+    val username: String,
+    val email: String,
+    val password: String,
+    val idtype: Int
+)
 data class LoginRequest(
     val email: String,
     val password: String
@@ -24,9 +32,10 @@ data class UserUpdate(
     val name: String,
     val username: String,
     val email: String,
-    val password: String,
-    val idtype: Int
+    val password: String? = null,
+    var idtype: Int
 )
+
 data class UserTypeRequest(
     val type: String
 )
@@ -64,12 +73,12 @@ data class LoginResponse(
     val iduser: Int
 )
 data class UserDetailsResponse(
-    val id: Int,
-    val name: String,
-    val username: String,
-    val email: String,
-    val idtype: Int,
-    val password: String
+    val iduser: Int,
+    var name: String,
+    var username: String,
+    var email: String,
+    var idtype: Int,
+    var password: String
 )
 data class UserTypeResponse(
     val idtype: Int,
@@ -120,7 +129,7 @@ interface ApiService {
     @GET("user/{iduser}")
     fun getUserById(@Path("iduser") iduser: Int): Call<UserDetailsResponse>
     @POST("user/create")
-    fun createUser(@Body user: RegisterRequest): Call<Void>
+    fun createUser(@Body user: RegisterRequestAdmin): Call<Void>
     @PUT("user/update/{iduser}")
     fun updateUser(@Path("iduser") userId: Int, @Body userUpdate: UserUpdate): Call<Void>
     @DELETE("user/delete/{iduser}")
