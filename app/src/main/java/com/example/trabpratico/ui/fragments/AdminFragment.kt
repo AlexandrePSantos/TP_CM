@@ -22,6 +22,7 @@ import com.example.trabpratico.network.ProjectResponse
 import com.example.trabpratico.network.RegisterRequest
 import com.example.trabpratico.network.RegisterRequestAdmin
 import com.example.trabpratico.ui.UsersActivity
+import com.example.trabpratico.ui.adapters.ProjectAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
