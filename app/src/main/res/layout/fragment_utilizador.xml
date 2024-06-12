@@ -44,21 +44,21 @@
 
 </LinearLayout>
 
-<!--Adicionar á listagem de tasks pendentes:-->
-<!--<Button-->
-<!--android:id="@+id/buttonRegisterTaskDetails"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:text="Register Task Details" />-->
+    <!--Adicionar á listagem de tasks pendentes:-->
+    <!--<Button-->
+    <!--android:id="@+id/buttonRegisterTaskDetails"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Register Task Details" />-->
 
-<!--<Button-->
-<!--android:id="@+id/buttonAddObservations"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:text="Add Observations" />-->
+    <!--<Button-->
+    <!--android:id="@+id/buttonAddObservations"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Add Observations" />-->
 
-<!--<Button-->
-<!--android:id="@+id/buttonMarkTaskCompleted"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:text="Mark Task Completed" />-->
+    <!--<Button-->
+    <!--android:id="@+id/buttonMarkTaskCompleted"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Mark Task Completed" />-->
