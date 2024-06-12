@@ -40,7 +40,7 @@ class AdminFragment : Fragment() {
 
         apiService = RetrofitClient.instance
 
-        val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject1)
+        val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject)
         buttonAddProject.setOnClickListener {
             showAddProjectDialog()
         }
