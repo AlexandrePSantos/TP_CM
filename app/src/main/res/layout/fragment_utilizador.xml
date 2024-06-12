@@ -1,6 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</FrameLayout>
+    <!-- Card for Task Actions -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonViewPendingTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Pending Tasks" />
+
+            <Button
+                android:id="@+id/buttonViewCompletedTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Completed Tasks" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+    <!--Adicionar á listagem de tasks pendentes:-->
+    <!--<Button-->
+    <!--android:id="@+id/buttonRegisterTaskDetails"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Register Task Details" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/buttonAddObservations"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Add Observations" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/buttonMarkTaskCompleted"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Mark Task Completed" />-->
