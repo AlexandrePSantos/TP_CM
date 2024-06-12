@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -63,7 +64,7 @@ dependencies {
 
     // Room for local database
     implementation("androidx.room:room-runtime:2.4.0")
-    //kapt("androidx.room:room-compiler:2.4.0")
+    kapt("androidx.room:room-compiler:2.4.0")
     implementation("androidx.room:room-ktx:2.4.0")
 
     // Coroutine
@@ -71,7 +72,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
     // Existing dependencies from the initial file
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -87,6 +87,6 @@ dependencies {
 
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-
-
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 }
