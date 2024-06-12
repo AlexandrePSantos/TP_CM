@@ -27,16 +27,16 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/buttonAddProject1"
-                android:layout_width="wrap_content"
+                android:id="@+id/buttonAddProject"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_project"/>
+                android:text="Add Project"/>
 
             <Button
-                android:id="@+id/buttonListProjects1"
-                android:layout_width="wrap_content"
+                android:id="@+id/buttonListProjects"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/list_projects"/>
+                android:text="List Projects"/>
 
         </LinearLayout>
 

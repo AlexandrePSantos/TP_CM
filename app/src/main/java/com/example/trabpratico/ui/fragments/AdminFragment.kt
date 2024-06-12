@@ -1,6 +1,5 @@
 package com.example.trabpratico.ui.fragments
 
-import ProjectAdapter
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.ProjectRequest
-import com.example.trabpratico.network.ProjectResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +19,6 @@ import retrofit2.Response
 class AdminFragment : Fragment() {
 
     private lateinit var apiService: ApiService
-    private lateinit var projectAdapter: ProjectAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,36 +28,20 @@ class AdminFragment : Fragment() {
 
         apiService = RetrofitClient.instance
 
-        setupRecyclerView(view)
-
         val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject)
         buttonAddProject.setOnClickListener {
             showAddProjectDialog()
         }
 
-        fetchProjects()
+        val buttonListProjects = view.findViewById<Button>(R.id.buttonListProjects)
+        buttonListProjects.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProjectListFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         return view
-    }
-
-    private fun setupRecyclerView(view: View) {
-        projectAdapter = ProjectAdapter()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewProjects)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = projectAdapter
-
-        projectAdapter.setOnItemClickListener(object : ProjectAdapter.OnItemClickListener {
-            override fun onItemClick(project: ProjectResponse) {
-                showEditProjectDialog(project)
-            }
-        })
-
-        projectAdapter.setOnItemLongClickListener(object : ProjectAdapter.OnItemLongClickListener {
-            override fun onItemLongClick(project: ProjectResponse): Boolean {
-                removeProject(project)
-                return true
-            }
-        })
     }
 
     private fun showAddProjectDialog() {
@@ -89,34 +68,6 @@ class AdminFragment : Fragment() {
         dialog.show()
     }
 
-    private fun showEditProjectDialog(project: ProjectResponse) {
-        val inflater = LayoutInflater.from(requireContext())
-        val dialogView = inflater.inflate(R.layout.dialog_edit_project, null)
-        val inputName = dialogView.findViewById<EditText>(R.id.editTextProjectName)
-        val inputStartDate = dialogView.findViewById<EditText>(R.id.editTextStartDate)
-        val inputEndDate = dialogView.findViewById<EditText>(R.id.editTextEndDate)
-
-        inputName.setText(project.nameproject)
-        inputStartDate.setText(project.startdatep)
-        inputEndDate.setText(project.enddatep)
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Edit Project")
-            .setView(dialogView)
-            .setPositiveButton("Save") { _, _ ->
-                val name = inputName.text.toString()
-                val startDate = inputStartDate.text.toString()
-                val endDate = inputEndDate.text.toString()
-                editProject(project, name, startDate, endDate)
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.cancel()
-            }
-            .create()
-
-        dialog.show()
-    }
-
     private fun addProject(name: String, startDate: String, endDate: String) {
         val projectRequest = ProjectRequest(
             name,
@@ -133,76 +84,12 @@ class AdminFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     showToast("Project added successfully")
-                    fetchProjects()
                 } else {
                     showToast("Failed to add project")
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                showToast("Error: ${t.message}")
-            }
-        })
-    }
-
-    private fun editProject(project: ProjectResponse, name: String, startDate: String, endDate: String) {
-        val projectRequest = ProjectRequest(
-            name,
-            startDate,
-            endDate,
-            project.idstate,
-            project.iduser,
-            project.completionstatus,
-            project.performancereview,
-            project.obs
-        )
-
-        apiService.updateProject(project.idproject, projectRequest).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    showToast("Project updated successfully")
-                    fetchProjects()
-                } else {
-                    showToast("Failed to update project")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                showToast("Error: ${t.message}")
-            }
-        })
-    }
-
-    private fun removeProject(project: ProjectResponse) {
-        apiService.deleteProject(project.idproject).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    showToast("Project removed successfully")
-                    fetchProjects()
-                } else {
-                    showToast("Failed to remove project")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                showToast("Error: ${t.message}")
-            }
-        })
-    }
-
-    private fun fetchProjects() {
-        apiService.getAllProjects().enqueue(object : Callback<List<ProjectResponse>> {
-            override fun onResponse(call: Call<List<ProjectResponse>>, response: Response<List<ProjectResponse>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        projectAdapter.submitList(it)
-                    }
-                } else {
-                    showToast("Failed to load projects")
-                }
-            }
-
-            override fun onFailure(call: Call<List<ProjectResponse>>, t: Throwable) {
                 showToast("Error: ${t.message}")
             }
         })

@@ -3,68 +3,48 @@ package com.example.trabpratico.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.network.ProjectResponse
 
-class ProjectAdapter : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
-
-    private var projects: List<ProjectResponse> = emptyList()
-    private var onItemClickListener: OnItemClickListener? = null
-    private var onItemLongClickListener: OnItemLongClickListener? = null
-
-    interface OnItemClickListener {
-        fun onItemClick(project: ProjectResponse)
-    }
-
-    interface OnItemLongClickListener {
-        fun onItemLongClick(project: ProjectResponse): Boolean
-    }
-
-    inner class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        private val textViewStartDate: TextView = itemView.findViewById(R.id.textViewStartDate)
-        private val textViewEndDate: TextView = itemView.findViewById(R.id.textViewEndDate)
-
-        fun bind(project: ProjectResponse) {
-            textViewName.text = project.nameproject
-            textViewStartDate.text = project.startdatep
-            textViewEndDate.text = project.enddatep
-
-            itemView.setOnClickListener {
-                onItemClickListener?.onItemClick(project)
-            }
-
-            itemView.setOnLongClickListener {
-                onItemLongClickListener?.onItemLongClick(project) ?: false
-            }
-        }
-    }
+class ProjectAdapter(
+    private val onEditClick: (ProjectResponse) -> Unit,
+    private val onRemoveClick: (Int) -> Unit
+) : ListAdapter<ProjectResponse, ProjectAdapter.ProjectViewHolder>(ProjectDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_project, parent, false)
-        return ProjectViewHolder(itemView)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project, parent, false)
+        return ProjectViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
-        holder.bind(projects[position])
+        val project = getItem(position)
+        holder.bind(project, onEditClick, onRemoveClick)
     }
 
-    override fun getItemCount(): Int {
-        return projects.size
+    class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textViewName: TextView = itemView.findViewById(R.id.textViewProjectName)
+        private val buttonEdit: Button = itemView.findViewById(R.id.buttonEdit)
+        private val buttonRemove: Button = itemView.findViewById(R.id.buttonRemove)
+
+        fun bind(project: ProjectResponse, onEditClick: (ProjectResponse) -> Unit, onRemoveClick: (Int) -> Unit) {
+            textViewName.text = project.nameproject
+            buttonEdit.setOnClickListener { onEditClick(project) }
+            buttonRemove.setOnClickListener { onRemoveClick(project.idproject) }
+        }
     }
 
-    fun submitList(projects: List<ProjectResponse>) {
-        this.projects = projects
-        notifyDataSetChanged()
-    }
+    class ProjectDiffCallback : DiffUtil.ItemCallback<ProjectResponse>() {
+        override fun areItemsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
+            return oldItem.idproject == newItem.idproject
+        }
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        onItemClickListener = listener
-    }
-
-    fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
-        onItemLongClickListener = listener
+        override fun areContentsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
+            return oldItem == newItem
+        }
     }
 }
