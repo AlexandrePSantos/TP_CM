@@ -1,8 +1,11 @@
 package com.example.trabpratico.ui.activities.geral
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.ImageButton
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -14,14 +17,34 @@ import com.example.trabpratico.ui.fragments.UtilizadorFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var userTypeTextView: TextView
+    private lateinit var profileButton: ImageButton
+    private lateinit var logoutButton: Button
+    private lateinit var userName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         userTypeTextView = findViewById(R.id.userTypeTextView)
+        profileButton = findViewById(R.id.profileButton)
+        logoutButton = findViewById(R.id.logoutButton)
 
-        // Obtenha o tipo de usuário do Intent
+        userName = intent.getStringExtra("userName") ?: "User"
+
+        userTypeTextView.text = "Welcome, $userName!"
+
+        profileButton.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+
         val idtype = intent.getIntExtra("idtype", -1)
         if (idtype != -1) {
             when (idtype) {
@@ -38,12 +61,10 @@ class MainActivity : AppCompatActivity() {
                     userTypeTextView.text = "Utilizador"
                 }
                 else -> {
-                    // Tipo de usuário desconhecido
                     userTypeTextView.text = "Unknown User Type"
                 }
             }
         } else {
-            // Caso idtype não tenha sido passado corretamente
             userTypeTextView.text = "User Type Not Found"
         }
     }
@@ -53,45 +74,6 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.menu_admin -> {
-                // Exibir o fragmento de administração
-                showAdminFragment()
-                true
-            }
-            R.id.menu_gestor -> {
-                // Exibir o fragmento do gestor
-                showManagerFragment()
-                true
-            }
-            R.id.menu_utilizador -> {
-                // Exibir o fragmento do utilizador
-                showNormalUserFragment()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showAdminFragment() {
-        replaceFragment(AdminFragment())
-    }
-
-    private fun showManagerFragment() {
-        replaceFragment(GestorFragment())
-    }
-
-    private fun showNormalUserFragment() {
-        replaceFragment(UtilizadorFragment())
     }
 
     private fun replaceFragment(fragment: Fragment) {

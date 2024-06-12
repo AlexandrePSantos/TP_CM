@@ -21,6 +21,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var confirmButton: Button
     private lateinit var logoutButton: Button
     private lateinit var changePhotoButton: Button
+    private var originalPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,7 @@ class ProfileActivity : AppCompatActivity() {
                             // Preencher o campo de senha com um valor placeholder
                             passwordEditText.hint = "••••••••"
                             passwordEditText.tag = userDetailsResponse.password
+                            originalPassword = userDetailsResponse.password
                         } else {
                             showErrorPopup("Erro ao obter detalhes do usuário. Por favor, tente novamente.")
                         }
@@ -84,7 +86,13 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateProfile() {
         val username = usernameEditText.text.toString().trim()
         val name = nameEditText.text.toString().trim()
-        val password = if (passwordEditText.text.toString() == "••••••••") passwordEditText.tag.toString() else passwordEditText.text.toString().trim()
+        // Check if password field is blank (or contains only placeholders)
+        val password = if (passwordEditText.text.toString().isBlank() ||
+            passwordEditText.text.toString() == "••••••••") {
+            originalPassword
+        } else {
+            passwordEditText.text.toString().trim()
+        }
 
         val userId = RetrofitClient.getUserId()
 
@@ -95,15 +103,13 @@ class ProfileActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val userDetailsResponse = response.body()
                         if (userDetailsResponse != null) {
-                            val email = userDetailsResponse.email
-                            val idtype = userDetailsResponse.idtype
 
                             val userUpdate = UserUpdate(
                                 username = username,
                                 name = name,
-                                password = password,
-                                email = email,
-                                idtype = idtype
+                                password = password ?: "",
+                                email = userDetailsResponse.email,
+                                idtype = userDetailsResponse.idtype
                             )
 
                             apiService.updateUser(userId, userUpdate).enqueue(object : Callback<Void> {
