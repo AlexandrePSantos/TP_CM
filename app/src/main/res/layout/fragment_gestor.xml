@@ -1,6 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</FrameLayout>
+    <!-- Card for Project Actions -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewProjects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Projects"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonAssociateTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Associate Tasks to Projects" />
+
+            <Button
+                android:id="@+id/buttonAssociateUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Associate Users to Tasks" />
+
+            <Button
+                android:id="@+id/buttonViewProjectTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Project Tasks" />
+
+            <Button
+                android:id="@+id/buttonMarkProjectCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mark Project as Completed" />
+
+            <Button
+                android:id="@+id/buttonEvaluatePerformance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evaluate User Performance" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
