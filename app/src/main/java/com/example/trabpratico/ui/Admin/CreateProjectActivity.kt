@@ -82,8 +82,9 @@ class CreateProjectActivity : AppCompatActivity() {
 
     private fun saveProject() {
         val nameProject = binding.editTextProjectName.text.toString()
-        val startDate = binding.editTextStartDate.text.toString()
-        val endDate = binding.editTextEndDate.text.toString()
+        val startDate = convertToISO8601(binding.editTextStartDate.text.toString())
+        val endDate = convertToISO8601(binding.editTextEndDate.text.toString())
+
         val projectManagerIndex = binding.spinnerProjectManager.selectedItemPosition
 
         if (projectManagerIndex == -1 || nameProject.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
@@ -122,6 +123,11 @@ class CreateProjectActivity : AppCompatActivity() {
                 Toast.makeText(this@CreateProjectActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun convertToISO8601(date: String): String {
+        val parts = date.split("/")
+        return "${parts[2]}-${parts[1]}-${parts[0]}T00:00:00Z"
     }
 
 }
