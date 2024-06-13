@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="project"
+            type="com.example.trabpratico.network.ProjectResponse"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.EditProjectFragment">
+
+        <EditText
+            android:id="@+id/editTextProjectName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Project Name"
+            android:text="@{project.nameproject}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Start Date"
+            android:text="@{project.startdatep}"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@id/editTextProjectName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="End Date"
+            android:text="@{project.enddatep}"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@id/editTextStartDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerProjectManager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/editTextEndDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <Button
+            android:id="@+id/buttonUpdateProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Project"
+            app:layout_constraintTop_toBottomOf="@id/spinnerProjectManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <Button
+            android:id="@+id/buttonDeleteProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Project"
+            app:layout_constraintTop_toBottomOf="@id/buttonUpdateProject"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
