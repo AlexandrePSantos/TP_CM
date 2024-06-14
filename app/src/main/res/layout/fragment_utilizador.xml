@@ -5,9 +5,9 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Card for Task Actions -->
+    <!-- Card for Pending Tasks -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewTasks"
+        android:id="@+id/cardPendingTasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -23,42 +23,48 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tasks"
+                android:text="Pending Tasks"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/buttonViewPendingTasks"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPendingTasks"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Pending Tasks" />
+                android:visibility="gone" />
 
-            <Button
-                android:id="@+id/buttonViewCompletedTasks"
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Card for Finished Tasks -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFinishedTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Completed Tasks" />
+                android:text="Pending Tasks"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFinishedTasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
-
-    <!--Adicionar á listagem de tasks pendentes:-->
-    <!--<Button-->
-    <!--android:id="@+id/buttonRegisterTaskDetails"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Register Task Details" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/buttonAddObservations"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Add Observations" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/buttonMarkTaskCompleted"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Mark Task Completed" />-->

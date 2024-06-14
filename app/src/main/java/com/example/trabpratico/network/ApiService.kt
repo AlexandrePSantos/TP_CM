@@ -67,6 +67,11 @@ data class StateRequest(
     val state: String
 )
 
+data class UserTaskRequest(
+    val iduser: Int,
+    val idtask: Int
+)
+
 // Response classes
 data class LoginResponse(
     val token: String,
@@ -115,6 +120,10 @@ data class StateResponse(
     val state: String
 )
 
+data class UserTaskResponse(
+    val iduser: Int,
+    val idtask: Int
+)
 interface ApiService {
 
     // Auth
@@ -183,8 +192,9 @@ interface ApiService {
     @DELETE("state/delete/{idstate}")
     fun deleteState(@Path("idstate") idstate: Int): Call<Void>
 
-    @GET("projects")
-    fun getProjects(): Call<List<ProjectResponse>>
-
-
+    // UserTask
+    @POST("usertask/create")
+    fun createUserTask(@Body userTaskRequest: UserTaskRequest): Call<Void>
+    @GET("usertask")
+    fun getUserTasks(): Call<List<UserTaskResponse>>
 }
