@@ -1,41 +1,42 @@
 package com.example.trabpratico.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trabpratico.databinding.ItemProjectBinding
+import com.example.trabpratico.R
 import com.example.trabpratico.network.ProjectResponse
 
-class ProjectAdapter(private val onClick: (ProjectResponse) -> Unit) : ListAdapter<ProjectResponse, ProjectAdapter.ProjectViewHolder>(ProjectDiffCallback()) {
+class ProjectAdapter(private val onClick: (ProjectResponse) -> Unit) :
+    RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
+
+    private var projectList: List<ProjectResponse> = listOf()
+
+    fun submitList(projects: List<ProjectResponse>) {
+        projectList = projects
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val binding = ItemProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProjectViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_project, parent, false)
+        return ProjectViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
-        val project = getItem(position)
-        holder.bind(project, onClick)
+        val project = projectList[position]
+        holder.bind(project)
+        holder.itemView.setOnClickListener { onClick(project) }
     }
 
-    class ProjectViewHolder(private val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(project: ProjectResponse, onClick: (ProjectResponse) -> Unit) {
-            binding.textViewProjectName.text = project.nameproject
-            binding.textViewStartDate.text = project.startdatep
-            binding.textViewEndDate.text = project.enddatep
-            binding.root.setOnClickListener { onClick(project) }
-        }
-    }
+    override fun getItemCount(): Int = projectList.size
 
-    class ProjectDiffCallback : DiffUtil.ItemCallback<ProjectResponse>() {
-        override fun areItemsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem.idproject == newItem.idproject
-        }
+    class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val projectName: TextView = itemView.findViewById(R.id.textViewProjectName)
 
-        override fun areContentsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem == newItem
+        fun bind(project: ProjectResponse) {
+            projectName.text = project.nameproject
         }
     }
 }

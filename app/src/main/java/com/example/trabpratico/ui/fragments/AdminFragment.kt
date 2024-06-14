@@ -17,6 +17,7 @@ import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.ProjectResponse
 import com.example.trabpratico.network.RegisterRequestAdmin
 import com.example.trabpratico.ui.CreateProjectActivity
+import com.example.trabpratico.ui.EditProjectActivity
 import com.example.trabpratico.ui.ProjectAdapter
 import com.example.trabpratico.ui.UsersActivity
 import retrofit2.Call
@@ -42,6 +43,14 @@ class AdminFragment : Fragment() {
             val intent = Intent(activity, CreateProjectActivity::class.java)
             startActivity(intent)
         }
+
+        val buttonListProjects = view.findViewById<Button>(R.id.buttonListProjects)
+        buttonListProjects.setOnClickListener {
+            // Criar um Intent para iniciar buttonListProjects
+            val intent = Intent(activity, EditProjectActivity::class.java)
+            startActivity(intent)
+        }
+
         val buttonAddUser = view.findViewById<Button>(R.id.buttonAddUser)
         buttonAddUser.setOnClickListener {
             showAddUserDialog()

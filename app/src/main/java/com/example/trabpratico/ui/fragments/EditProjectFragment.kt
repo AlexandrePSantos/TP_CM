@@ -1,39 +1,29 @@
 package com.example.trabpratico.ui.fragments
 
+import RetrofitClient
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.trabpratico.databinding.FragmentEditProjectBinding
-import com.example.trabpratico.network.ApiService
-import com.example.trabpratico.network.ProjectResponse
 import com.example.trabpratico.network.ProjectRequest
+import com.example.trabpratico.network.ProjectResponse
 import com.example.trabpratico.network.UserDetailsResponse
-import com.example.trabpratico.ui.UsersActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class EditProjectFragment : Fragment() {
 
-    private lateinit var binding: FragmentEditProjectBinding
-    private lateinit var apiService: ApiService
-    private var projectId: Int = -1
-    private lateinit var editTextStartDate: EditText
-    private lateinit var editTextEndDate: EditText
-    private lateinit var spinnerProjectManager: Spinner
-    private var userList: List<UserDetailsResponse> = listOf()
-
     companion object {
-        private const val ARG_PROJECT_ID = "project_id"
+        private const val ARG_PROJECT_ID = "PROJECT_ID"
 
         fun newInstance(projectId: Int) = EditProjectFragment().apply {
             arguments = Bundle().apply {
@@ -42,60 +32,87 @@ class EditProjectFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private var projectId: Int = -1
+    private lateinit var binding: FragmentEditProjectBinding
+    private val calendar = Calendar.getInstance()
+    private lateinit var userList: List<UserDetailsResponse>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            projectId = it.getInt(ARG_PROJECT_ID)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentEditProjectBinding.inflate(inflater, container, false)
-        apiService = RetrofitClient.instance
-        projectId = arguments?.getInt(ARG_PROJECT_ID) ?: -1
+        return binding.root
+    }
 
-        editTextStartDate = binding.editTextStartDate
-        editTextEndDate = binding.editTextEndDate
-        spinnerProjectManager = binding.spinnerProjectManager
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchProjectDetails(projectId)
+        fetchUsers()
 
-        editTextStartDate.setOnClickListener {
-            showDatePicker(editTextStartDate)
+        binding.editTextStartDate.setOnClickListener {
+            showDatePickerDialog { date -> binding.editTextStartDate.setText(date) }
         }
 
-        editTextEndDate.setOnClickListener {
-            showDatePicker(editTextEndDate)
+        binding.editTextEndDate.setOnClickListener {
+            showDatePickerDialog { date -> binding.editTextEndDate.setText(date) }
         }
 
         binding.buttonUpdateProject.setOnClickListener {
-            updateProjectDetails()
+            val name = binding.editTextProjectName.text.toString()
+            val startDate = formatDateForDisplay(binding.editTextStartDate.text.toString())
+            val endDate = formatDateForDisplay(binding.editTextEndDate.text.toString())
+            val projectManagerIndex = binding.spinnerProjectManager.selectedItemPosition
+
+            if (projectManagerIndex == -1 || name.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val projectManagerId = userList[projectManagerIndex].iduser
+            updateProject(ProjectResponse(projectId, name, startDate, endDate, 1, projectManagerId, false, null, null))
         }
 
         binding.buttonDeleteProject.setOnClickListener {
             deleteProject(projectId)
         }
-
-        loadProjectDetails(projectId)
-        fetchUsers()
-
-        return binding.root
     }
 
-    private fun showDatePicker(editText: EditText) {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+    private fun fetchProjectDetails(projectId: Int) {
+        RetrofitClient.instance.getProjectById(projectId).enqueue(object : Callback<ProjectResponse> {
+            override fun onResponse(call: Call<ProjectResponse>, response: Response<ProjectResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { project ->
+                        binding.editTextProjectName.setText(project.nameproject)
+                        binding.editTextStartDate.setText(project.startdatep)
+                        binding.editTextEndDate.setText(project.enddatep)
+                    }
+                }
+            }
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            editText.setText(selectedDate)
-        }
-
-        DatePickerDialog(requireContext(), dateSetListener, year, month, day).show()
+            override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun fetchUsers() {
         RetrofitClient.instance.getAllUsers().enqueue(object : Callback<List<UserDetailsResponse>> {
             override fun onResponse(call: Call<List<UserDetailsResponse>>, response: Response<List<UserDetailsResponse>>) {
                 if (response.isSuccessful) {
-                    userList = response.body() ?: listOf()
+                    val allUsers = response.body() ?: emptyList()
+                    userList = allUsers.filter { it.idtype == 2 }  // Filtra apenas os usuários com idtype == 2 (gestores)
                     val userNames = userList.map { it.name }
                     val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userNames)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinnerProjectManager.adapter = adapter
+                    binding.spinnerProjectManager.adapter = adapter
                 } else {
                     Toast.makeText(requireContext(), "Failed to fetch users", Toast.LENGTH_SHORT).show()
                 }
@@ -107,81 +124,77 @@ class EditProjectFragment : Fragment() {
         })
     }
 
-    private fun loadProjectDetails(projectId: Int) {
-        apiService.getProjectById(projectId).enqueue(object : Callback<ProjectResponse> {
-            override fun onResponse(call: Call<ProjectResponse>, response: Response<ProjectResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { project ->
-                        binding.project = project
-                        editTextStartDate.setText(project.startdatep)
-                        editTextEndDate.setText(project.enddatep)
-                    }
-                } else {
-                    Toast.makeText(context, "Failed to load project details", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
-                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun updateProjectDetails() {
-        val project = binding.project ?: return
-        val nameProject = binding.editTextProjectName.text.toString()
-        val startDate = binding.editTextStartDate.text.toString()
-        val endDate = binding.editTextEndDate.text.toString()
-        val projectManagerIndex = spinnerProjectManager.selectedItemPosition
-
-        if (projectManagerIndex == -1 || nameProject.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
-            Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val projectManagerId = userList[projectManagerIndex].iduser
-
-        val projectUpdateRequest = ProjectRequest(
-            nameproject = nameProject,
-            startdatep = startDate,
-            enddatep = endDate,
+    private fun updateProject(project: ProjectResponse) {
+        val projectRequest = ProjectRequest(
+            nameproject = project.nameproject,
+            startdatep = project.startdatep,
+            enddatep = project.enddatep,
             idstate = project.idstate,
-            iduser = projectManagerId,
+            iduser = project.iduser,
             completionstatus = project.completionstatus,
             performancereview = project.performancereview,
             obs = project.obs
         )
 
-        apiService.updateProject(project.idproject, projectUpdateRequest).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(context, "Project updated successfully", Toast.LENGTH_SHORT).show()
-                    requireActivity().finish()
-                } else {
-                    Toast.makeText(context, "Failed to update project", Toast.LENGTH_SHORT).show()
+        RetrofitClient.instance.updateProject(project.idproject, projectRequest)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(requireContext(), "Project updated successfully", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to update project", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     private fun deleteProject(projectId: Int) {
-        apiService.deleteProject(projectId).enqueue(object : Callback<Void> {
+        RetrofitClient.instance.deleteProject(projectId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Project deleted successfully", Toast.LENGTH_SHORT).show()
-                    requireActivity().finish()
+                    Toast.makeText(requireContext(), "Project deleted successfully", Toast.LENGTH_SHORT).show()
+                    activity?.supportFragmentManager?.popBackStack()
                 } else {
-                    Toast.makeText(context, "Failed to delete project", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Failed to delete project", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
+    private fun showDatePickerDialog(onDateSet: (String) -> Unit) {
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            onDateSet(dateFormat.format(calendar.time))
+        }
+
+        DatePickerDialog(
+            requireContext(), dateSetListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    private fun convertToISO8601(date: String): String {
+        val parts = date.split("-")
+        return "${parts[0]}-${parts[1]}-${parts[2]}T00:00:00.000Z"
+    }
+
+    private fun formatDateForDisplay(date: String): String {
+        val parts = date.split("T")[0].split("-")
+        return "${parts[2]}/${parts[1]}/${parts[0]}"
+    }
+
+
 }
