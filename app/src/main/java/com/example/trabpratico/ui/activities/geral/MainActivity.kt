@@ -2,10 +2,8 @@ package com.example.trabpratico.ui.activities.geral
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.widget.ImageButton
-import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

@@ -6,24 +6,9 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewProjectName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Project Name"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/textViewStartDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Date"
-        android:textSize="14sp"/>
-
-    <TextView
-        android:id="@+id/textViewEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="End Date"
-        android:textSize="14sp"/>
+        android:textSize="16sp" />
 </LinearLayout>
