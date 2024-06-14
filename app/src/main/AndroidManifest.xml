@@ -21,6 +21,7 @@
         <activity android:name=".ui.activities.geral.ProfileActivity" />
         <activity android:name=".ui.Admin.EditUserActivity" />
         <activity android:name=".ui.UsersActivity" android:exported="true"/>
+        <activity android:name=".ui.Utilizador.TaskActivity" />
 
         <activity
             android:name=".ui.activities.geral.IntroActivity"

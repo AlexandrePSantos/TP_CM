@@ -36,5 +36,6 @@
     <string name="list_stats_user">list Statistics By User</string>
     <string name="list_stats_project">list Statistics By Project</string>
     <string name="list_stats_task">list Statistics By Task</string>
+    <string name="pending_tasks">Pending Tasks</string>
 
 </resources>
