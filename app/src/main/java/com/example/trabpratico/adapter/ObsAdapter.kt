@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.network.ObsResponse
 
-
 class ObsAdapter : RecyclerView.Adapter<ObsAdapter.ObsViewHolder>() {
 
-    private var observations: List<ObsResponse> = emptyList()
+    private var observations: List<ObsResponse> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_observation, parent, false)
@@ -19,22 +18,21 @@ class ObsAdapter : RecyclerView.Adapter<ObsAdapter.ObsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ObsViewHolder, position: Int) {
-        holder.bind(observations[position])}
+        holder.bind(observations[position])
+    }
 
     override fun getItemCount(): Int = observations.size
 
-    fun submitList(obsList: List<ObsResponse>) {
-        observations = obsList
+    fun submitList(observationList: List<ObsResponse>) {
+        observations = observationList
         notifyDataSetChanged()
     }
 
     class ObsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val obsNameTextView: TextView = itemView.findViewById(R.id.obsNameTextView)
         private val obsContentTextView: TextView = itemView.findViewById(R.id.obsContentTextView)
 
-        fun bind(obs: ObsResponse) {
-            obsNameTextView.text = obs.nameobs
-            obsContentTextView.text = obs.content
+        fun bind(observation: ObsResponse) {
+            obsContentTextView.text = observation.content
         }
     }
 }

@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Project Name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Task Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/textStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Date"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Date"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="State"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTimeSpent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Time Spent (minutes)"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editLocal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Local"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textCompletionRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Completion Rate"
+            android:layout_marginTop="8dp" />
+
+        <SeekBar
+            android:id="@+id/seekBarCompletionRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Observations"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewObservations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/buttonAddObservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Observation"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
