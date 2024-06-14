@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="recyclerViewPendingTasks" type="id">recyclerViewPendingTasks</item>
-    <item name="recyclerViewFinishedTasks" type="id">recyclerViewFinishedTasks</item>
+    <item name="recyclerViewPendingTasks" type="id"/>
+    <item name="recyclerViewFinishedTasks" type="id"/>
 </resources>
