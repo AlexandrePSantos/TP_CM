@@ -55,13 +55,9 @@ data class TaskRequest(
     val enddatet: String?,
     val idproject: Int,
     val idstate: Int,
-    val photo: String?,
     val timespend: String?,
     val local: String?,
-    val taxes: Double?,
     val completionrate: Double?,
-    val photos: String?,
-    val observations: String?
 )
 data class StateRequest(
     val state: String
@@ -70,6 +66,12 @@ data class StateRequest(
 data class UserTaskRequest(
     val iduser: Int,
     val idtask: Int
+)
+
+data class ObsRequest(
+    val nameobs: String,
+    val idtask: Int,
+    val content: String
 )
 
 // Response classes
@@ -107,13 +109,9 @@ data class TaskResponse(
     val enddatet: String?,
     val idproject: Int,
     val idstate: Int,
-    val photo: String?,
     val timespend: String?,
     val local: String?,
-    val taxes: Double?,
     val completionrate: Double?,
-    val photos: String?,
-    val observations: String?
 )
 data class StateResponse(
     val idstate: Int,
@@ -123,6 +121,12 @@ data class StateResponse(
 data class UserTaskResponse(
     val iduser: Int,
     val idtask: Int
+)
+
+data class ObsResponse(
+    val nameobs: String,
+    val idtask: Int,
+    val content: String
 )
 interface ApiService {
 
@@ -197,4 +201,12 @@ interface ApiService {
     fun createUserTask(@Body userTaskRequest: UserTaskRequest): Call<Void>
     @GET("usertask")
     fun getUserTasks(): Call<List<UserTaskResponse>>
+
+    // Obs
+    @GET("obs")
+    fun getAllObs(): Call<List<ObsResponse>>
+    @GET("obs/{idobs}")
+    fun getObsById(@Path("idobs") idobs: Int): Call<ObsResponse>
+    @POST("obs/create")
+    fun createObs(@Body obs: ObsRequest): Call<Void>
 }
