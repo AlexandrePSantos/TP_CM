@@ -1,5 +1,6 @@
 package com.example.trabpratico.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.network.TaskResponse
+import com.example.trabpratico.ui.Utilizador.TaskActivity
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
@@ -34,7 +36,18 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
         fun bind(task: TaskResponse) {
             taskName.text = task.nametask
-            taskStatus.text = if (task.idstate == 3) "Completed" else if (task.idstate == 2) "In Progress" else "Created"
+            taskStatus.text = when (task.idstate) {
+                3 -> "Completed"
+                2 -> "In Progress"
+                else -> "Created"
+            }
+
+            itemView.setOnClickListener{
+                val context = itemView.context
+                val intent = Intent(context, TaskActivity::class.java)
+                intent.putExtra("TASK_ID", task.idtask)
+                context.startActivity(intent)
+            }
         }
     }
 }
