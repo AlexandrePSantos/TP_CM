@@ -67,8 +67,8 @@ class EditProjectFragment : Fragment() {
 
         binding.buttonUpdateProject.setOnClickListener {
             val name = binding.editTextProjectName.text.toString()
-            val startDate = formatDateForDisplay(binding.editTextStartDate.text.toString())
-            val endDate = formatDateForDisplay(binding.editTextEndDate.text.toString())
+            val startDate = binding.editTextStartDate.text.toString()
+            val endDate = binding.editTextEndDate.text.toString()
             val projectManagerIndex = binding.spinnerProjectManager.selectedItemPosition
 
             if (projectManagerIndex == -1 || name.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
@@ -91,8 +91,8 @@ class EditProjectFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { project ->
                         binding.editTextProjectName.setText(project.nameproject)
-                        binding.editTextStartDate.setText(project.startdatep)
-                        binding.editTextEndDate.setText(project.enddatep)
+                        binding.editTextStartDate.setText(project.startdatep?.let { formatDateForDisplay(it) })
+                        binding.editTextEndDate.setText(project.enddatep?.let { formatDateForDisplay(it) })
                     }
                 }
             }
@@ -127,8 +127,8 @@ class EditProjectFragment : Fragment() {
     private fun updateProject(project: ProjectResponse) {
         val projectRequest = ProjectRequest(
             nameproject = project.nameproject,
-            startdatep = project.startdatep,
-            enddatep = project.enddatep,
+            startdatep = project.startdatep?.let { convertToISO8601(it) },
+            enddatep = project.enddatep?.let { convertToISO8601(it) },
             idstate = project.idstate,
             iduser = project.iduser,
             completionstatus = project.completionstatus,
