@@ -54,7 +54,7 @@ data class TaskRequest(
     val enddatet: String?,
     val idproject: Int,
     val idstate: Int,
-    val timespend: String?,
+    val timespend: Int?,
     val local: String?,
     val completionrate: Double?,
 )
@@ -69,7 +69,6 @@ data class UserTaskRequest(
 )
 
 data class ObsRequest(
-    val nameobs: String,
     val idtask: Int,
     val content: String
 )
@@ -113,7 +112,7 @@ data class TaskResponse(
     val enddatet: String?,
     val idproject: Int,
     val idstate: Int,
-    val timespend: String?,
+    val timespend: Int?,
     val local: String?,
     val completionrate: Double?,
 )
@@ -129,7 +128,6 @@ data class UserTaskResponse(
 )
 
 data class ObsResponse(
-    val nameobs: String,
     val idtask: Int,
     val content: String
 )
