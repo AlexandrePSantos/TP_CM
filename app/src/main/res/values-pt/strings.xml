@@ -36,4 +36,9 @@
     <string name="list_stats_project">Listar Estatísticas por Projeto</string>
     <string name="list_stats_task">Listar Estatísticas por Tarefa</string>
     <string name="pending_tasks">Tarefas Pendentes</string>
+    <string name="select_project_manager">Selecione Gestor</string>
+    <string name="save_project">Guardar Projeto</string>
+    <string name="end_date">Data Final</string>
+    <string name="start_date">Data Inicial</string>
+    <string name="project_name">Nome do Projeto</string>
 </resources>
