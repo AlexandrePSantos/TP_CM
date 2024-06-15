@@ -1,26 +1,17 @@
 package com.example.trabpratico.ui.Utilizador
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.adapter.ObsAdapter
-import com.example.trabpratico.network.ApiService
-import com.example.trabpratico.network.ObsRequest
-import com.example.trabpratico.network.ObsResponse
-import com.example.trabpratico.network.ProjectResponse
-import com.example.trabpratico.network.StateResponse
-import com.example.trabpratico.network.TaskRequest
-import com.example.trabpratico.network.TaskResponse
+import com.example.trabpratico.network.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +35,7 @@ class TaskActivity : AppCompatActivity() {
     private var taskId: Int = -1
     private var task: TaskResponse? = null
     private var projectId: Int = -1
+    private var idState: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +60,13 @@ class TaskActivity : AppCompatActivity() {
         seekBarCompletionRate.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 textCompletionRate.text = "$progress%"
+                idState = when {
+                    progress == 0 -> 1
+                    progress in 1..99 -> 2
+                    progress == 100 -> 3
+                    else -> idState
+                }
+                loadState(idState) // Atualiza o estado com base no progresso
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -102,8 +101,10 @@ class TaskActivity : AppCompatActivity() {
                         editLocal.setText(it.local)
                         seekBarCompletionRate.progress = it.completionrate?.toInt() ?: 0
                         textCompletionRate.text = "${it.completionrate?.toInt() ?: 0}%"
+                        idState = it.idstate
                         loadProjectName(it.idproject)
                         loadObservations(it.idtask)
+                        loadState(it.idstate) // Adiciona chamada para carregar o estado
                         checkState(it.idstate)
                     }
                 } else {
@@ -138,9 +139,12 @@ class TaskActivity : AppCompatActivity() {
         apiService.getAllObs().enqueue(object : Callback<List<ObsResponse>> {
             override fun onResponse(call: Call<List<ObsResponse>>, response: Response<List<ObsResponse>>) {
                 if (response.isSuccessful) {
+                    Log.d("Observations", "Observations loaded no response: ${response.body()}")
                     val observations = response.body()?.filter { it.idtask == taskId }
                     if (observations != null) {
                         obsAdapter.submitList(observations)
+                        Log.d("IDTask", "Task ID: $taskId")
+                        Log.d("Observations", "Observations loaded: $observations")
                     }
                 } else {
                     Toast.makeText(this@TaskActivity, "Failed to load observations", Toast.LENGTH_SHORT).show()
@@ -153,6 +157,23 @@ class TaskActivity : AppCompatActivity() {
         })
     }
 
+    private fun loadState(idstate: Int) {
+        apiService.getStateById(idstate).enqueue(object : Callback<StateResponse> {
+            override fun onResponse(call: Call<StateResponse>, response: Response<StateResponse>) {
+                if (response.isSuccessful) {
+                    val state = response.body()
+                    textState.text = state?.state ?: "Unknown State"
+                } else {
+                    Toast.makeText(this@TaskActivity, "Failed to load state", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<StateResponse>, t: Throwable) {
+                Toast.makeText(this@TaskActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     private fun checkState(idstate: Int) {
         if (idstate == 3) {
             // Disable editing
@@ -160,6 +181,7 @@ class TaskActivity : AppCompatActivity() {
             editLocal.isEnabled = false
             seekBarCompletionRate.isEnabled = false
             buttonConfirm.visibility = View.GONE
+            buttonAddObservation.visibility = View.GONE
         }
     }
 
@@ -171,7 +193,7 @@ class TaskActivity : AppCompatActivity() {
             startdatet = task.startdatet,
             enddatet = task.enddatet,
             idproject = task.idproject,
-            idstate = task.idstate,
+            idstate = idState, // Atualiza o estado com base no progresso do slider
             timespend = editTimeSpent.text.toString().toIntOrNull(),
             local = editLocal.text.toString(),
             completionrate = seekBarCompletionRate.progress.toDouble()
