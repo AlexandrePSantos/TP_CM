@@ -30,13 +30,13 @@
                 android:id="@+id/buttonAddProject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Project"/>
+                android:text="@string/add_project"/>
 
             <Button
                 android:id="@+id/buttonListProjects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="List Projects"/>
+                android:text="@string/list_projects"/>
 
         </LinearLayout>
 

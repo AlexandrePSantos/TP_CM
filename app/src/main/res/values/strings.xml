@@ -47,6 +47,16 @@
     <string name="login">SIGN IN</string>
     <string name="register">SIGN UP</string>
     <string name="email">Email</string>
+    <string name="alterar_gestor">Change Manager</string>
+    <string name="update_project">Update Project</string>
+    <string name="delete_project">Delete Project</string>
+    <string name="update_user">Update User</string>
+    <string name="delete_user">Delete User</string>
+    <string name="associate_tasks_to_projects">Associate Tasks to Projects</string>
+    <string name="associate_users_to_tasks">Associate Users to Tasks</string>
+    <string name="view_project_tasks">View Project Tasks</string>
+    <string name="mark_project_as_completed">Mark Project as Completed</string>
+    <string name="evaluate_user_performance">Evaluate User Performance</string>
 
 
 </resources>

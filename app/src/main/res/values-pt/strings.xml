@@ -11,12 +11,12 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="action_sign_in">Entrar ou registrar-se</string>
+    <string name="action_sign_in_short">Iniciar Sessão</string>
+    <string name="welcome">"Bem Vindo"</string>
+    <string name="invalid_username">Username inválido</string>
+    <string name="invalid_password">Palavra-passe tem que ser >5</string>
+    <string name="login_failed">"Login falhou"</string>
     <string name="logout">Sair</string>
     <string name="hello_blank_fragment">Olá fragmento vazio</string>
     <string name="profile">Perfil</string>
@@ -46,4 +46,15 @@
     <string name="login">Iniciar sessão</string>
     <string name="register">Registar-se</string>
     <string name="email">Email</string>
+    <string name="alterar_gestor">Change Manager</string>
+    <string name="update_project">Atualizar Projeto</string>
+    <string name="delete_project">Eliminar Projeto</string>
+    <string name="update_user">Atualizar Utilizador</string>
+    <string name="delete_user">Eliminar Utilizador</string>
+    <string name="associate_tasks_to_projects">Associar Tarefas a Projetos</string>
+    <string name="associate_users_to_tasks">Associar Utilizadores a Tarefas</string>
+    <string name="view_project_tasks">Ver Tarefas do Projeto</string>
+    <string name="mark_project_as_completed">Marcar Projeto como Concluído</string>
+    <string name="evaluate_user_performance">Avaliar Desempenho do Utilizador</string>
+
 </resources>

@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Projects"
+                android:text="@string/projects"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -31,31 +31,31 @@
                 android:id="@+id/buttonAssociateTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Associate Tasks to Projects" />
+                android:text="@string/associate_tasks_to_projects" />
 
             <Button
                 android:id="@+id/buttonAssociateUsers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Associate Users to Tasks" />
+                android:text="@string/associate_users_to_tasks" />
 
             <Button
                 android:id="@+id/buttonViewProjectTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Project Tasks" />
+                android:text="@string/view_project_tasks" />
 
             <Button
                 android:id="@+id/buttonMarkProjectCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mark Project as Completed" />
+                android:text="@string/mark_project_as_completed" />
 
             <Button
                 android:id="@+id/buttonEvaluatePerformance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evaluate User Performance" />
+                android:text="@string/evaluate_user_performance" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
