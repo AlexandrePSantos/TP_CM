@@ -43,4 +43,7 @@
     <string name="project_name">Nome do Projeto</string>
     <string name="projetos_criados">Projetos Criados</string>
     <string name="voltar">Voltar</string>
+    <string name="login">Iniciar sessão</string>
+    <string name="register">Registar-se</string>
+    <string name="email">Email</string>
 </resources>

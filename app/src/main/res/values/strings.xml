@@ -44,5 +44,9 @@
     <string name="project_name">Project Name</string>
     <string name="projetos_criados">Created Projects</string>
     <string name="voltar">Back</string>
+    <string name="login">SIGN IN</string>
+    <string name="register">SIGN UP</string>
+    <string name="email">Email</string>
+
 
 </resources>
