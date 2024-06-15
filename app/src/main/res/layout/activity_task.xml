@@ -11,15 +11,23 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textProjectName"
+            android:id="@+id/textProjectTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Project Name"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
         <TextView
-            android:id="@+id/textTaskName"
+            android:id="@+id/textProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Task Name"
@@ -28,25 +36,68 @@
             android:layout_marginTop="16dp" />
 
         <TextView
-            android:id="@+id/textStartDate"
+            android:id="@+id/textTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textStartDateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Start Date"
-            android:layout_marginTop="8dp" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/textStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textEndDateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Date"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/textEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End Date"
-            android:layout_marginTop="8dp" />
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textStateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="State"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/textState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="State"
-            android:layout_marginTop="8dp" />
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textTimeSpentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time Spent (minutes)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/editTimeSpent"
@@ -56,6 +107,15 @@
             android:hint="Time Spent (minutes)"
             android:layout_marginTop="8dp" />
 
+        <TextView
+            android:id="@+id/textLocalTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Local"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
         <EditText
             android:id="@+id/editLocal"
             android:layout_width="match_parent"
@@ -64,17 +124,27 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/textCompletionRate"
+            android:id="@+id/textCompletionRateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Completion Rate"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/textCompletionRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
             android:layout_marginTop="8dp" />
 
         <SeekBar
             android:id="@+id/seekBarCompletionRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100" />
+            android:max="100"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="match_parent"

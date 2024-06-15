@@ -95,8 +95,8 @@ class TaskActivity : AppCompatActivity() {
                     task = response.body()
                     task?.let {
                         textTaskName.text = it.nametask
-                        textStartDate.text = it.startdatet
-                        textEndDate.text = it.enddatet
+                        textStartDate.text = it.startdatet?.let { it1 -> formatDateForDisplay(it1) }
+                        textEndDate.text = it.enddatet?.let { it1 -> formatDateForDisplay(it1) }
                         editTimeSpent.setText(it.timespend?.toString())
                         editLocal.setText(it.local)
                         seekBarCompletionRate.progress = it.completionrate?.toInt() ?: 0
@@ -251,5 +251,10 @@ class TaskActivity : AppCompatActivity() {
                 Toast.makeText(this@TaskActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun formatDateForDisplay(date: String): String {
+        val parts = date.split("T")[0].split("-")
+        return "${parts[2]}/${parts[1]}/${parts[0]}"
     }
 }
