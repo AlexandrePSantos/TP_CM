@@ -1,52 +1,52 @@
 <resources>
     <string name="app_name">TrabPratico</string>
     <string name="action_settings">Definições</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Primeiro Fragment</string>
-    <string name="second_fragment_label">Segundo Fragment</string>
+    <!-- Strings usadas para fragmentos de navegação -->
+    <string name="first_fragment_label">Primeiro Fragmento</string>
+    <string name="second_fragment_label">Segundo Fragmento</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
 
     <string name="lorem_ipsum">Exemplo</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Atividade de Login</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Entrar ou registrar-se</string>
+    <string name="prompt_password">Palavra-passe</string>
+    <string name="action_sign_in">Iniciar sessão ou registar-se</string>
     <string name="action_sign_in_short">Iniciar Sessão</string>
-    <string name="welcome">"Bem Vindo"</string>
-    <string name="invalid_username">Username inválido</string>
-    <string name="invalid_password">Palavra-passe tem que ser >5</string>
-    <string name="login_failed">"Login falhou"</string>
-    <string name="logout">Sair</string>
+    <string name="welcome">Bem-vindo</string>
+    <string name="invalid_username">Nome de utilizador inválido</string>
+    <string name="invalid_password">Palavra-passe inválida, deve ter mais de 5 caracteres</string>
+    <string name="login_failed">Falha no login</string>
+    <string name="logout">Terminar Sessão</string>
     <string name="hello_blank_fragment">Olá fragmento vazio</string>
     <string name="profile">Perfil</string>
-    <string name="change_photo">Trocar foto</string>
-    <string name="username">Nome de utilizador</string>
+    <string name="change_photo">Alterar foto</string>
+    <string name="username">Nome de Utilizador</string>
     <string name="name">Nome</string>
-    <string name="password">Senha</string>
+    <string name="password">Palavra-passe</string>
     <string name="confirm">Confirmar</string>
     <string name="projects">Projetos</string>
-    <string name="add_project">Adicionar projetos</string>
+    <string name="add_project">Adicionar Projeto</string>
     <string name="list_projects">Listar Projetos</string>
     <string name="users">Utilizadores</string>
-    <string name="add_users">Adicionar utilizadores</string>
-    <string name="list_users">Listar utilizadores</string>
+    <string name="add_users">Adicionar Utilizadores</string>
+    <string name="list_users">Listar Utilizadores</string>
     <string name="statistics">Estatísticas</string>
     <string name="list_stats_user">Listar Estatísticas por Utilizador</string>
     <string name="list_stats_project">Listar Estatísticas por Projeto</string>
     <string name="list_stats_task">Listar Estatísticas por Tarefa</string>
     <string name="pending_tasks">Tarefas Pendentes</string>
-    <string name="select_project_manager">Selecione Gestor</string>
+    <string name="select_project_manager">Selecionar Gestor de Projeto</string>
     <string name="save_project">Guardar Projeto</string>
-    <string name="end_date">Data Final</string>
-    <string name="start_date">Data Inicial</string>
+    <string name="end_date">Data de Término</string>
+    <string name="start_date">Data de Início</string>
     <string name="project_name">Nome do Projeto</string>
     <string name="projetos_criados">Projetos Criados</string>
     <string name="voltar">Voltar</string>
-    <string name="login">Iniciar sessão</string>
+    <string name="login">Iniciar Sessão</string>
     <string name="register">Registar-se</string>
     <string name="email">Email</string>
-    <string name="alterar_gestor">Change Manager</string>
+    <string name="alterar_gestor">Alterar Gestor</string>
     <string name="update_project">Atualizar Projeto</string>
     <string name="delete_project">Eliminar Projeto</string>
     <string name="update_user">Atualizar Utilizador</string>
@@ -56,5 +56,11 @@
     <string name="view_project_tasks">Ver Tarefas do Projeto</string>
     <string name="mark_project_as_completed">Marcar Projeto como Concluído</string>
     <string name="evaluate_user_performance">Avaliar Desempenho do Utilizador</string>
-
+    <string name="finished_tasks">Tarefas Concluídas</string>
+    <string name="observation_name">Nome da Observação</string>
+    <string name="observation_content">Conteúdo da Observação</string>
+    <string name="task_name">Nome da Tarefa</string>
+    <string name="task_status">Estado da Tarefa</string>
+    <string name="slide_content">Conteúdo do Slide</string>
 </resources>
+l

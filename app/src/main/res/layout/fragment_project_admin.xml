@@ -9,7 +9,7 @@
         android:id="@+id/buttonAddProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Project"/>
+        android:text="@string/add_project"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProjects"

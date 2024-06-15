@@ -9,6 +9,6 @@
         android:id="@+id/textViewProjectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Project Name"
+        android:text="@string/project_name"
         android:textSize="16sp" />
 </LinearLayout>

@@ -8,15 +8,15 @@
     <string name="previous">Previous</string>
 
     <string name="lorem_ipsum">Example</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login Activity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Invalid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">Login failed</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
 
     <string name="logout">Logout</string>
@@ -31,11 +31,11 @@
     <string name="list_projects">List Projects</string>
     <string name="users">Users</string>
     <string name="add_users">Add Users</string>
-    <string name="list_users">list Users</string>
+    <string name="list_users">List Users</string>
     <string name="statistics">Statistics</string>
-    <string name="list_stats_user">list Statistics By User</string>
-    <string name="list_stats_project">list Statistics By Project</string>
-    <string name="list_stats_task">list Statistics By Task</string>
+    <string name="list_stats_user">List Statistics By User</string>
+    <string name="list_stats_project">List Statistics By Project</string>
+    <string name="list_stats_task">List Statistics By Task</string>
     <string name="pending_tasks">Pending Tasks</string>
     <string name="select_project_manager">Select Project Manager</string>
     <string name="save_project">Save Project</string>
@@ -57,6 +57,10 @@
     <string name="view_project_tasks">View Project Tasks</string>
     <string name="mark_project_as_completed">Mark Project as Completed</string>
     <string name="evaluate_user_performance">Evaluate User Performance</string>
-
-
+    <string name="finished_tasks">Finished Tasks</string>
+    <string name="observation_name">Observation Name</string>
+    <string name="observation_content">Observation Content</string>
+    <string name="task_name">Task Name</string>
+    <string name="task_status">Task Status</string>
+    <string name="slide_content">Slide Content</string>
 </resources>

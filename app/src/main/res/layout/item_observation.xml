@@ -7,13 +7,13 @@
     android:id="@+id/obsNameTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Observation Name"
+    android:text="@string/observation_name"
     android:textStyle="bold" />
 
     <TextView
         android:id="@+id/obsContentTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Observation Content" />
+        android:text="@string/observation_content" />
 
 </LinearLayout>
