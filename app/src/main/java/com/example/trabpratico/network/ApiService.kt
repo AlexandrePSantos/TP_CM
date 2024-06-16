@@ -43,9 +43,9 @@ data class ProjectRequest(
     val enddatep: String?,
     val idstate: Int,
     val iduser: Int,
-    val completionstatus: Boolean,
-    val performancereview: String?,
-    val obs: String?
+    val completionstatus: Boolean = false,
+    val performancereview: String? = null,
+    val obs: String? = null
 )
 
 data class TaskRequest(
@@ -70,7 +70,15 @@ data class UserTaskRequest(
 
 data class ObsRequest(
     val idtask: Int,
+    val iduser: Int,
     val content: String
+)
+
+data class PerformanceRequest(
+    val iduser: Int,
+    val idtask: Int,
+    val stars: Int,
+    val review: String
 )
 
 // Response classes
@@ -129,8 +137,17 @@ data class UserTaskResponse(
 
 data class ObsResponse(
     val idtask: Int,
+    val iduser: Int,
     val content: String
 )
+
+data class PerformanceResponse(
+    val iduser: Int,
+    val idtask: Int,
+    val stars: Int,
+    val review: String
+)
+
 interface ApiService {
 
     // Auth
@@ -233,4 +250,12 @@ interface ApiService {
     fun getObsById(@Path("idobs") idobs: Int): Call<ObsResponse>
     @POST("obs/create")
     fun createObs(@Body obs: ObsRequest): Call<Void>
+
+    // Performance
+    @GET("performance")
+    fun getPerformance(): Call<List<PerformanceResponse>>
+    @GET("performance/{idtask}")
+    fun getPerformanceByTask(@Path("idtask") idtask: Int): Call<PerformanceResponse>
+    @POST("performance/create")
+    fun createPerformance(@Body review: PerformanceRequest): Call<Void>
 }

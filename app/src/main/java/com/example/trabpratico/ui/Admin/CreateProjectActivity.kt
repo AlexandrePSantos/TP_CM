@@ -66,7 +66,8 @@ class CreateProjectActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val allUsers = response.body() ?: emptyList()
                     userList = allUsers.filter { it.idtype == 2 }  // Filtra apenas os usuários com idtype == 2 (gestores)
-                    val userNames = userList.map { it.name }
+                    val userNames = userList.map { it.username }
+                    Log.d("CreateProjectActivity", "User Names: $userNames")
                     val adapter = ArrayAdapter(this@CreateProjectActivity, android.R.layout.simple_spinner_item, userNames)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     binding.spinnerProjectManager.adapter = adapter

@@ -24,6 +24,11 @@
         <activity android:name=".ui.EditProjectActivity" />
         <activity android:name=".ui.UsersActivity" android:exported="true"/>
         <activity android:name=".ui.Utilizador.TaskActivity" />
+        <activity android:name=".ui.Gestor.ProjectActivity" />
+        <activity android:name=".ui.Gestor.ProjectTasksListActivity" />
+        <activity android:name=".ui.Gestor.ListUsersActivity" />
+        <activity android:name=".ui.Gestor.ListObsActivity" />
+
 
         <activity
             android:name=".ui.activities.geral.IntroActivity"
