@@ -29,6 +29,7 @@
         <activity android:name=".ui.Gestor.ListUsersActivity" />
         <activity android:name=".ui.Gestor.ListObsActivity" />
 
+
         <activity
             android:name=".ui.activities.geral.IntroActivity"
             android:exported="true"

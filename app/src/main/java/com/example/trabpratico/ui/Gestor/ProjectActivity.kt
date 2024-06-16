@@ -62,8 +62,8 @@ class ProjectActivity : AppCompatActivity() {
                     project = response.body()
                     project?.let {
                         textProjectName.text = it.nameproject
-                        textStartDate.text = it.startdatep
-                        textEndDate.text = it.enddatep
+                        textStartDate.text = it.startdatep?.let { it1 -> formatDateForDisplay(it1) }
+                        textEndDate.text = it.enddatep?.let { it1 -> formatDateForDisplay(it1) }
                         textState.text = getStateText(it.idstate)
                     }
                     if (project?.completionstatus == true) {
@@ -118,6 +118,11 @@ class ProjectActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun formatDateForDisplay(date: String): String {
+        val parts = date.split("T")[0].split("-")
+        return "${parts[2]}/${parts[1]}/${parts[0]}"
     }
 
     private fun navigateToNewPage() {

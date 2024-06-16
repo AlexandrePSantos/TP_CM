@@ -70,6 +70,7 @@ data class UserTaskRequest(
 
 data class ObsRequest(
     val idtask: Int,
+    val iduser: Int,
     val content: String
 )
 
@@ -136,6 +137,7 @@ data class UserTaskResponse(
 
 data class ObsResponse(
     val idtask: Int,
+    val iduser: Int,
     val content: String
 )
 

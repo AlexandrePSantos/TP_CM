@@ -287,6 +287,7 @@ class TaskActivity : AppCompatActivity() {
 
         val newObservation = ObsRequest(
             idtask = task.idtask,
+            iduser = RetrofitClient.getUserId() ?: -1,
             content = content
         )
 
