@@ -66,6 +66,9 @@ class ProjectActivity : AppCompatActivity() {
                         textEndDate.text = it.enddatep
                         textState.text = getStateText(it.idstate)
                     }
+                    if (project?.completionstatus == true) {
+                        buttonMarkCompleted.visibility = View.GONE
+                    }
                 } else {
                     Toast.makeText(this@ProjectActivity, "Failed to load project details", Toast.LENGTH_SHORT).show()
                 }

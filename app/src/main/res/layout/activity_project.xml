@@ -79,6 +79,6 @@
         android:id="@+id/buttonNavigate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go to New Page"
+        android:text="Tasks"
         android:layout_marginTop="16dp" />
 </LinearLayout>

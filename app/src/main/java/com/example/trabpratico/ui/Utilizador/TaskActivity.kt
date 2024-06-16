@@ -1,5 +1,6 @@
 package com.example.trabpratico.ui.Utilizador
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.adapter.ObsAdapter
 import com.example.trabpratico.network.*
+import com.example.trabpratico.ui.Gestor.ListObsActivity
+import com.example.trabpratico.ui.Gestor.ListUsersActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,13 +32,17 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var textCompletionRate: TextView
     private lateinit var recyclerViewObservations: RecyclerView
     private lateinit var buttonAddObservation: Button
+    private lateinit var textObservationsTitle: TextView
     private lateinit var buttonConfirm: Button
     private lateinit var obsAdapter: ObsAdapter
+    private lateinit var buttonObservations: Button
+    private lateinit var buttonUtilizadores: Button
 
     private var taskId: Int = -1
     private var task: TaskResponse? = null
     private var projectId: Int = -1
     private var idState: Int = -1
+    private var idType: Int = -1 // Variable to store user type
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +59,11 @@ class TaskActivity : AppCompatActivity() {
         seekBarCompletionRate = findViewById(R.id.seekBarCompletionRate)
         textCompletionRate = findViewById(R.id.textCompletionRate)
         recyclerViewObservations = findViewById(R.id.recyclerViewObservations)
+        textObservationsTitle = findViewById(R.id.textObservationsTitle)
         buttonAddObservation = findViewById(R.id.buttonAddObservation)
         buttonConfirm = findViewById(R.id.buttonConfirm)
+        buttonObservations = findViewById(R.id.buttonObservations)
+        buttonUtilizadores = findViewById(R.id.buttonUtilizadores)
 
         taskId = intent.getIntExtra("TASK_ID", -1)
 
@@ -85,7 +95,35 @@ class TaskActivity : AppCompatActivity() {
             updateTaskDetails()
         }
 
-        loadTaskDetails()
+        buttonUtilizadores.setOnClickListener {
+            val intent = Intent(this, ListUsersActivity::class.java)
+            intent.putExtra("TASK_ID", taskId)
+            startActivity(intent)
+        }
+        buttonObservations.setOnClickListener {
+            val intent = Intent(this, ListObsActivity::class.java)
+            intent.putExtra("TASK_ID", taskId)
+            startActivity(intent)
+        }
+
+        loadUserType()
+    }
+
+    private fun loadUserType() {
+        apiService.getUserById(RetrofitClient.getUserId() ?: -1).enqueue(object : Callback<UserDetailsResponse> {
+            override fun onResponse(call: Call<UserDetailsResponse>, response: Response<UserDetailsResponse>) {
+                if (response.isSuccessful) {
+                    idType = response.body()?.idtype ?: -1
+                    loadTaskDetails()
+                } else {
+                    Toast.makeText(this@TaskActivity, "Failed to load user type", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserDetailsResponse>, t: Throwable) {
+                Toast.makeText(this@TaskActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun loadTaskDetails() {
@@ -106,6 +144,7 @@ class TaskActivity : AppCompatActivity() {
                         loadObservations(it.idtask)
                         loadState(it.idstate) // Adiciona chamada para carregar o estado
                         checkState(it.idstate)
+                        checkUserType()
                     }
                 } else {
                     Toast.makeText(this@TaskActivity, "Failed to load task details", Toast.LENGTH_SHORT).show()
@@ -161,8 +200,8 @@ class TaskActivity : AppCompatActivity() {
         apiService.getStateById(idstate).enqueue(object : Callback<StateResponse> {
             override fun onResponse(call: Call<StateResponse>, response: Response<StateResponse>) {
                 if (response.isSuccessful) {
-                    val state = response.body()
-                    textState.text = state?.state ?: "Unknown State"
+                    textState.text = response.body()?.state ?: "Unknown State"
+                    Log.d("State", "State: ${response.body()?.state}")
                 } else {
                     Toast.makeText(this@TaskActivity, "Failed to load state", Toast.LENGTH_SHORT).show()
                 }
@@ -185,6 +224,20 @@ class TaskActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkUserType() {
+        if (idType == 2) {
+            editTimeSpent.isEnabled = false
+            editLocal.isEnabled = false
+            seekBarCompletionRate.isEnabled = false
+            textObservationsTitle.visibility = View.GONE
+            buttonConfirm.visibility = View.GONE
+            buttonAddObservation.visibility = View.GONE
+        }else if (idType == 3) {
+            buttonUtilizadores.visibility = View.GONE
+            buttonObservations.visibility = View.GONE
+        }
+    }
+
     private fun updateTaskDetails() {
         val task = task ?: return
 
@@ -193,7 +246,7 @@ class TaskActivity : AppCompatActivity() {
             startdatet = task.startdatet,
             enddatet = task.enddatet,
             idproject = task.idproject,
-            idstate = idState, // Atualiza o estado com base no progresso do slider
+            idstate = idState,
             timespend = editTimeSpent.text.toString().toIntOrNull(),
             local = editLocal.text.toString(),
             completionrate = seekBarCompletionRate.progress.toDouble()
