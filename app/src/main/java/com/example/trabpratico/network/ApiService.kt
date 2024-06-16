@@ -43,9 +43,9 @@ data class ProjectRequest(
     val enddatep: String?,
     val idstate: Int,
     val iduser: Int,
-    val completionstatus: Boolean,
-    val performancereview: String?,
-    val obs: String?
+    val completionstatus: Boolean = false,
+    val performancereview: String? = null,
+    val obs: String? = null
 )
 
 data class TaskRequest(
