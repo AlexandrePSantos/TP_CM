@@ -73,6 +73,13 @@ data class ObsRequest(
     val content: String
 )
 
+data class PerformanceRequest(
+    val iduser: Int,
+    val idtask: Int,
+    val stars: Int,
+    val review: String
+)
+
 // Response classes
 data class LoginResponse(
     val token: String,
@@ -131,6 +138,14 @@ data class ObsResponse(
     val idtask: Int,
     val content: String
 )
+
+data class PerformanceResponse(
+    val iduser: Int,
+    val idtask: Int,
+    val stars: Int,
+    val review: String
+)
+
 interface ApiService {
 
     // Auth
@@ -233,4 +248,12 @@ interface ApiService {
     fun getObsById(@Path("idobs") idobs: Int): Call<ObsResponse>
     @POST("obs/create")
     fun createObs(@Body obs: ObsRequest): Call<Void>
+
+    // Performance
+    @GET("performance")
+    fun getPerformance(): Call<List<PerformanceResponse>>
+    @GET("performance/{idtask}")
+    fun getPerformanceByTask(@Path("idtask") idtask: Int): Call<PerformanceResponse>
+    @POST("performance/create")
+    fun createPerformance(@Body review: PerformanceRequest): Call<Void>
 }
