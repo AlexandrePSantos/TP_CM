@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Project Details"
+        android:text="@string/project_details"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Project Name"
+        android:text="@string/project_name"
         android:textSize="18sp"
         android:layout_marginTop="8dp" />
 
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Date"
+        android:text="@string/start_date"
         android:textSize="18sp"
         android:layout_marginTop="8dp" />
 
@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End Date"
+        android:text="@string/end_date"
         android:textSize="18sp"
         android:layout_marginTop="8dp" />
 
@@ -57,7 +57,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="State"
+        android:text="@string/state"
         android:textSize="18sp"
         android:layout_marginTop="8dp" />
 
@@ -72,13 +72,13 @@
         android:id="@+id/buttonMarkCompleted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mark as Completed"
+        android:text="@string/mark_as_completed"
         android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/buttonNavigate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tasks"
+        android:text="@string/tasks"
         android:layout_marginTop="16dp" />
 </LinearLayout>

@@ -63,4 +63,15 @@
     <string name="task_name">Nome da Tarefa</string>
     <string name="task_status">Estado da Tarefa</string>
     <string name="slide_content">Conteúdo do Slide</string>
+    <string name="project_details">Detalhes do Projeto</string>
+    <string name="state">Estado</string>
+    <string name="mark_as_completed">Marcar como Concluído</string>
+    <string name="tasks">Tarefas</string>
+    <string name="time_spent_minutes">Tempo Gasto (minutos)</string>
+    <string name="local">Local</string>
+    <string name="completion_rate">Taxa de Conclusão</string>
+    <string name="observations">Observações</string>
+    <string name="add_observation">Adicionar Observação</string>
+    <string name="sync_observations">Sincronizar Observações</string>
+
 </resources>
