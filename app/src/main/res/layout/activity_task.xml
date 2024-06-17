@@ -169,6 +169,13 @@
             android:layout_marginTop="8dp" />
 
         <Button
+            android:id="@+id/buttonSync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sync Observations"
+            android:layout_marginTop="8dp" />
+
+        <Button
             android:id="@+id/buttonConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

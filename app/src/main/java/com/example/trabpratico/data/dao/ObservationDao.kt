@@ -21,4 +21,7 @@ interface ObservationDao {
 
     @Query("SELECT * FROM obs WHERE id = :id")
     suspend fun getObservationById(id: Int): Observation?
+
+    @Query("SELECT * FROM obs WHERE issynced = 0")
+    suspend fun getUnsyncedObservations(): List<Observation>
 }

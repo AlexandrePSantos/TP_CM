@@ -1,6 +1,8 @@
 package com.example.trabpratico.ui.Utilizador
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +10,13 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
 import com.example.trabpratico.adapter.ObsAdapter
+import com.example.trabpratico.data.entities.Observation
+import com.example.trabpratico.data.vm.ObsViewModel
 import com.example.trabpratico.network.*
 import com.example.trabpratico.ui.Gestor.ListObsActivity
 import com.example.trabpratico.ui.Gestor.ListUsersActivity
@@ -22,6 +27,7 @@ import retrofit2.Response
 class TaskActivity : AppCompatActivity() {
 
     private lateinit var apiService: ApiService
+    private lateinit var obsViewModel: ObsViewModel
     private lateinit var textTaskName: TextView
     private lateinit var textStartDate: TextView
     private lateinit var textEndDate: TextView
@@ -32,6 +38,7 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var textCompletionRate: TextView
     private lateinit var recyclerViewObservations: RecyclerView
     private lateinit var buttonAddObservation: Button
+    private lateinit var buttonSync: Button
     private lateinit var textObservationsTitle: TextView
     private lateinit var buttonConfirm: Button
     private lateinit var obsAdapter: ObsAdapter
@@ -49,6 +56,7 @@ class TaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task)
 
         apiService = RetrofitClient.instance
+        obsViewModel = ViewModelProvider(this).get(ObsViewModel::class.java)
 
         textTaskName = findViewById(R.id.textTaskName)
         textStartDate = findViewById(R.id.textStartDate)
@@ -61,6 +69,7 @@ class TaskActivity : AppCompatActivity() {
         recyclerViewObservations = findViewById(R.id.recyclerViewObservations)
         textObservationsTitle = findViewById(R.id.textObservationsTitle)
         buttonAddObservation = findViewById(R.id.buttonAddObservation)
+        buttonSync = findViewById(R.id.buttonSync)
         buttonConfirm = findViewById(R.id.buttonConfirm)
         buttonObservations = findViewById(R.id.buttonObservations)
         buttonUtilizadores = findViewById(R.id.buttonUtilizadores)
@@ -100,10 +109,15 @@ class TaskActivity : AppCompatActivity() {
             intent.putExtra("TASK_ID", taskId)
             startActivity(intent)
         }
+
         buttonObservations.setOnClickListener {
             val intent = Intent(this, ListObsActivity::class.java)
             intent.putExtra("TASK_ID", taskId)
             startActivity(intent)
+        }
+
+        buttonSync.setOnClickListener {
+            syncObservations()
         }
 
         loadUserType()
@@ -232,7 +246,8 @@ class TaskActivity : AppCompatActivity() {
             textObservationsTitle.visibility = View.GONE
             buttonConfirm.visibility = View.GONE
             buttonAddObservation.visibility = View.GONE
-        }else if (idType == 3) {
+            buttonSync.visibility = View.GONE
+        } else if (idType == 3) {
             buttonUtilizadores.visibility = View.GONE
             buttonObservations.visibility = View.GONE
         }
@@ -284,27 +299,56 @@ class TaskActivity : AppCompatActivity() {
 
     private fun addObservation(content: String) {
         val task = task ?: return
-
-        val newObservation = ObsRequest(
+        val newObservation = Observation(
+            id = 0,
             idtask = task.idtask,
             iduser = RetrofitClient.getUserId() ?: -1,
-            content = content
+            content = content,
+            issynced = false
         )
 
-        apiService.createObs(newObservation).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    loadObservations(task.idtask)
-                    Toast.makeText(this@TaskActivity, "Observation added", Toast.LENGTH_SHORT).show()
+        if (isNetworkAvailable()) {
+            apiService.createObs(ObsRequest(newObservation.idtask, newObservation.iduser, newObservation.content)).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        loadObservations(task.idtask)
+                        Toast.makeText(this@TaskActivity, "Observation added", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@TaskActivity, "Failed to add observation", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    obsViewModel.addObservation(newObservation)
+                    Toast.makeText(this@TaskActivity, "Observation saved locally", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            obsViewModel.addObservation(newObservation)
+            Toast.makeText(this@TaskActivity, "Observation saved locally", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun syncObservations() {
+        if (isNetworkAvailable()) {
+            obsViewModel.syncObservations(apiService) { success ->
+                if (success) {
+                    Toast.makeText(this, "Observations synchronized successfully", Toast.LENGTH_SHORT).show()
+                    loadObservations(taskId)
                 } else {
-                    Toast.makeText(this@TaskActivity, "Failed to add observation", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Failed to synchronize observations", Toast.LENGTH_SHORT).show()
                 }
             }
+        } else {
+            Toast.makeText(this, "No internet connection. Please try again later.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@TaskActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
     }
 
     private fun formatDateForDisplay(date: String): String {

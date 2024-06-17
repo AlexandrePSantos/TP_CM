@@ -18,4 +18,8 @@ class ObsRepository(private val obsDao: ObservationDao) {
     suspend fun deleteObservation(observation: Observation) {
         obsDao.delete(observation)
     }
+
+    suspend fun getUnsyncedObservations(): List<Observation> {
+        return obsDao.getUnsyncedObservations()
+    }
 }
