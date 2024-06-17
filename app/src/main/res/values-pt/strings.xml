@@ -73,5 +73,9 @@
     <string name="observations">Observações</string>
     <string name="add_observation">Adicionar Observação</string>
     <string name="sync_observations">Sincronizar Observações</string>
-
+    <string name="enter_observation">Inserir observação</string>
+    <string name="enter_review">Inserir avaliação</string>
+    <string name="finished_projects">Projetos Concluídos</string>
+    <string name="pending_projects">Projetos Pendentes</string>
+    <string name="submit_review">Enviar Avaliação</string>
 </resources>
