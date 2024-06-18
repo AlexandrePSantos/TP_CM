@@ -60,6 +60,8 @@ class AdminFragment : Fragment() {
             startActivity(intent)
         }
 
+
+
         return view
     }
 

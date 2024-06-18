@@ -2,6 +2,7 @@ package com.example.trabpratico.ui
 
 import RetrofitClient
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trabpratico.R
@@ -48,14 +49,21 @@ class EditProjectActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { projects ->
+                        Log.d("EditProjectActivity", "Projects loaded: ${projects.size}")
                         projectAdapter.submitList(projects)
+                    } ?: run {
+                        Log.e("EditProjectActivity", "No projects found in response body")
                     }
+                } else {
+                    Log.e("EditProjectActivity", "Failed to fetch projects: ${response.code()} - ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<ProjectResponse>>, t: Throwable) {
-                // Handle failure
+                Log.e("EditProjectActivity", "Error fetching projects: ${t.message}", t)
             }
         })
     }
+
+
 }
