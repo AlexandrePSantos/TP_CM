@@ -83,19 +83,26 @@
         android:textSize="16sp"
         android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/buttonMarkCompleted"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mark_as_completed"
-        android:backgroundTint="@color/blue"
-        android:layout_marginTop="16dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
-    <Button
-        android:id="@+id/buttonNavigate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="@string/tasks"
-        android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/buttonMarkCompleted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:text="@string/mark_as_completed" />
+
+        <Button
+            android:id="@+id/buttonNavigate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:text="@string/tasks" />
+    </LinearLayout>
 </LinearLayout>

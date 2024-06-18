@@ -37,6 +37,7 @@
             android:padding="8dp"
             android:backgroundTint="@color/red"
             android:layout_marginBottom="16dp" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

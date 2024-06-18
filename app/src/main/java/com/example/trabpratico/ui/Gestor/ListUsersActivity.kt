@@ -137,7 +137,8 @@ class ListUsersActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<UserDetailsResponse>>, response: Response<List<UserDetailsResponse>>) {
                 if (response.isSuccessful) {
                     val users = response.body()
-                    userDialogAdapter.submitList(users ?: emptyList())
+                    val filteredUsers = users?.filter { it.idtype == 3 }
+                    userDialogAdapter.submitList(filteredUsers ?: emptyList())
                 } else {
                     Toast.makeText(this@ListUsersActivity, "Failed to load users", Toast.LENGTH_SHORT).show()
                 }

@@ -24,6 +24,7 @@
             android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
             android:text="@string/voltar" />
     </LinearLayout>
 
@@ -43,6 +44,7 @@
             android:id="@+id/buttonAddProject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
             android:text="@string/add_project"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

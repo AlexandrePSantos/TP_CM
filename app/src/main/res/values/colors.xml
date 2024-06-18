@@ -6,4 +6,5 @@
     <color name="red">#FF0000</color>
     <color name="blue">#0000FF</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="statusBarColor">#303F9F</color>
 </resources>

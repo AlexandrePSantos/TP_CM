@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTaskName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Name" />
+
+    <TextView
+        android:id="@+id/textViewStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Date"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:textColor="?android:attr/textColorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Date"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:textColor="?android:attr/textColorPrimary" />
+
+    <Button
+        android:id="@+id/buttonCreateTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Task" />
+
+    <Button
+        android:id="@+id/buttonCancelTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+</LinearLayout>
