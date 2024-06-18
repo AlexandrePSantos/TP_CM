@@ -64,4 +64,19 @@
     <string name="task_name">Task Name</string>
     <string name="task_status">Task Status</string>
     <string name="slide_content">Slide Content</string>
+    <string name="project_details">Project Details</string>
+    <string name="state">State</string>
+    <string name="mark_as_completed">Mark as Completed</string>
+    <string name="tasks">Tasks</string>
+    <string name="time_spent_minutes">Time Spent (minutes)</string>
+    <string name="local">Local</string>
+    <string name="completion_rate">Completion Rate</string>
+    <string name="observations">Observations</string>
+    <string name="add_observation">Add Observation</string>
+    <string name="sync_observations">Sync Observations</string>
+    <string name="enter_observation">Enter observation</string>
+    <string name="enter_review">Enter review</string>
+    <string name="finished_projects">Finished Projects</string>
+    <string name="pending_projects">Pending Projects</string>
+    <string name="submit_review">Submit Review</string>
 </resources>

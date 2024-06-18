@@ -14,7 +14,7 @@
             android:id="@+id/textProjectTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Project Name"
+            android:text="@string/project_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -30,7 +30,7 @@
             android:id="@+id/textTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Task Name"
+            android:text="@string/task_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -46,7 +46,7 @@
             android:id="@+id/textStartDateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Date"
+            android:text="@string/start_date"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -62,7 +62,7 @@
             android:id="@+id/textEndDateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End Date"
+            android:text="@string/end_date"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -78,7 +78,7 @@
             android:id="@+id/textStateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="State"
+            android:text="@string/state"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -94,7 +94,7 @@
             android:id="@+id/textTimeSpentTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time Spent (minutes)"
+            android:text="@string/time_spent_minutes"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -104,14 +104,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Time Spent (minutes)"
+            android:hint="@string/time_spent_minutes"
             android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/textLocalTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Local"
+            android:text="@string/local"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -120,14 +120,14 @@
             android:id="@+id/editLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Local"
+            android:hint="@string/local"
             android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/textCompletionRateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Completion Rate"
+            android:text="@string/completion_rate"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -150,7 +150,7 @@
             android:id="@+id/textObservationsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Observations"
+            android:text="@string/observations"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -165,28 +165,35 @@
             android:id="@+id/buttonAddObservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Observation"
+            android:text="@string/add_observation"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/buttonSync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sync_observations"
             android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/buttonConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/buttonObservations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Observations"
+            android:text="@string/observations"
             android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/buttonUtilizadores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Users"
+            android:text="@string/users"
             android:layout_marginTop="16dp" />
 
     </LinearLayout>

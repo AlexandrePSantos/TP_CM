@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pending Projects"
+                android:text="@string/pending_projects"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Finished Projects"
+                android:text="@string/finished_projects"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
