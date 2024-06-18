@@ -37,6 +37,10 @@ class ProjectListFragment : Fragment() {
         binding.recyclerViewProjects.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewProjects.adapter = projectAdapter
 
+        binding.buttonBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         fetchProjects()
     }
 

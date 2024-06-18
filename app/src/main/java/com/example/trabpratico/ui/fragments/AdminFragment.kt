@@ -46,7 +46,6 @@ class AdminFragment : Fragment() {
 
         val buttonListProjects = view.findViewById<Button>(R.id.buttonListProjects)
         buttonListProjects.setOnClickListener {
-            // Criar um Intent para iniciar buttonListProjects
             val intent = Intent(activity, EditProjectActivity::class.java)
             startActivity(intent)
         }

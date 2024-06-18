@@ -3,6 +3,7 @@ package com.example.trabpratico.ui.Gestor
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
@@ -39,6 +40,11 @@ class ListUsersActivity : AppCompatActivity() {
             showPerformanceReviewDialog(user)
         })
         recyclerViewUsers.adapter = userAdapter
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish() 
+        }
 
         fetchUsers()
     }
@@ -80,8 +86,7 @@ class ListUsersActivity : AppCompatActivity() {
         val inputReview = dialogView.findViewById<EditText>(R.id.editTextReview)
         val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBar)
 
-        AlertDialog.Builder(this)
-            .setTitle("Review for ${user.name}")
+        val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setPositiveButton("Submit") { _, _ ->
                 val review = inputReview.text.toString()

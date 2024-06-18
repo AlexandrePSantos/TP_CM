@@ -36,7 +36,7 @@ class EditProjectActivity : AppCompatActivity() {
         fetchProjects()
 
         binding.buttonBack.setOnClickListener {
-            finish() // This will close the current activity and return to the previous one
+            finish()
         }
     }
 

@@ -20,7 +20,6 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var confirmButton: Button
     private lateinit var logoutButton: Button
-    private lateinit var changePhotoButton: Button
     private var originalPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +31,6 @@ class ProfileActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         confirmButton = findViewById(R.id.confirmButton)
         logoutButton = findViewById(R.id.logoutButton)
-        changePhotoButton = findViewById(R.id.changePhotoButton)
 
         confirmButton.setOnClickListener {
             updateProfile()
@@ -42,8 +40,9 @@ class ProfileActivity : AppCompatActivity() {
             logout()
         }
 
-        changePhotoButton.setOnClickListener {
-            changePhoto()
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
         }
 
         fetchUserDetails()

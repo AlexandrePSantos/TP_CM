@@ -58,6 +58,10 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 })
         }
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showSuccessPopup() {

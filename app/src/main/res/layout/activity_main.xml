@@ -33,8 +33,9 @@
 
             <ImageButton
                 android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_image_button"
                 android:contentDescription="@string/profile"
                 android:src="@drawable/ic_profile_placeholder" />
 
@@ -43,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/holo_red_light"
-                android:text="@string/voltar"
+                android:text="@string/logout"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

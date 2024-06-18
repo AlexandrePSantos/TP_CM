@@ -19,6 +19,7 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     private var userId: Int? = null // Adicione uma variável para armazenar o ID do usuário
+    private var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +76,10 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
         }
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getUserType() {
@@ -122,8 +127,8 @@ class LoginActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Login Successful")
         builder.setMessage("You have successfully logged in.")
-        val dialog = builder.create()
-        dialog.show()
+        dialog = builder.create()
+        dialog?.show()
     }
 
     private fun showErrorPopup() {
@@ -131,8 +136,13 @@ class LoginActivity : AppCompatActivity() {
         builder.setTitle("Login Failed")
         builder.setMessage("There was an error during login.")
         builder.setPositiveButton("OK", null)
-        val dialog = builder.create()
-        dialog.show()
+        dialog = builder.create()
+        dialog?.show()
+    }
+
+    override fun onDestroy() {
+        dialog?.dismiss()
+        super.onDestroy()
     }
 
     private fun redirectToMain(idtype: Int) {

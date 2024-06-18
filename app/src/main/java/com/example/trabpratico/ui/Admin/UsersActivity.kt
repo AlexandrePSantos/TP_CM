@@ -3,9 +3,11 @@ package com.example.trabpratico.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trabpratico.R
 import com.example.trabpratico.databinding.ActivityUsersBinding
 import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.UserDetailsResponse
@@ -34,6 +36,11 @@ class UsersActivity : AppCompatActivity() {
         binding.recyclerViewUsers.apply {
             layoutManager = LinearLayoutManager(this@UsersActivity)
             adapter = userAdapter
+        }
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
         }
 
         fetchUsers()

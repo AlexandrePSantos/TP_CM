@@ -1,6 +1,7 @@
 package com.example.trabpratico.ui.Admin
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabpratico.R
 import com.example.trabpratico.ui.fragments.EditUserFragment
@@ -19,5 +20,11 @@ class EditUserActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, EditUserFragment.newInstance(userId))
                 .commitNow()
         }
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
+
     }
 }

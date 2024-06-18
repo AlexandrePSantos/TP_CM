@@ -79,4 +79,10 @@
     <string name="finished_projects">Finished Projects</string>
     <string name="pending_projects">Pending Projects</string>
     <string name="submit_review">Submit Review</string>
+    <string name="Avaliar_Performance">Evaluate Performance</string>
+    <string name="utilizadores">Users</string>
+    <string name="Observacoes">Observations</string>
+    <string name="edit_user">Edit User</string>
+    <string name="edit_project">Edit Project</string>
+    <string name="create_project">Create Project</string>
 </resources>

@@ -5,9 +5,11 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trabpratico.R
 import com.example.trabpratico.databinding.ActivityCreateProjectBinding
 import com.example.trabpratico.network.ProjectRequest
 import com.example.trabpratico.network.UserDetailsResponse
@@ -28,6 +30,11 @@ class CreateProjectActivity : AppCompatActivity() {
 
         setupViews()
         fetchUsers()
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setupViews() {

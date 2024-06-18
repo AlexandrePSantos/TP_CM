@@ -120,6 +120,11 @@ class TaskActivity : AppCompatActivity() {
             syncObservations()
         }
 
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
+
         loadUserType()
     }
 

@@ -1,6 +1,7 @@
 package com.example.trabpratico.ui.Gestor
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,11 @@ class ListObsActivity : AppCompatActivity() {
         recyclerViewUserObservations.layoutManager = LinearLayoutManager(this)
         userObsAdapter = UserObsAdapter()
         recyclerViewUserObservations.adapter = userObsAdapter
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            finish()
+        }
 
         loadObservations()
     }

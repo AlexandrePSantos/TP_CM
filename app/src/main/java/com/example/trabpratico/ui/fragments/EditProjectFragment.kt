@@ -83,6 +83,11 @@ class EditProjectFragment : Fragment() {
         binding.buttonDeleteProject.setOnClickListener {
             deleteProject(projectId)
         }
+
+        binding.buttonBack.setOnClickListener {
+            // Use the FragmentManager to pop the back stack
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun fetchProjectDetails(projectId: Int) {
