@@ -6,9 +6,15 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/obsContentTextView"
+        android:id="@+id/textUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/observation_content" />
+        android:text="User Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUserObs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

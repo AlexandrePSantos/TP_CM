@@ -64,6 +64,7 @@ dependencies {
 
     // Room for local database
     implementation("androidx.room:room-runtime:2.4.0")
+    implementation(libs.filament.android)
     kapt("androidx.room:room-compiler:2.4.0")
     implementation("androidx.room:room-ktx:2.4.0")
 
@@ -91,5 +92,18 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
     implementation("com.google.android.material:material:1.13.0-alpha03")
+
+    implementation ("androidx.work:work-runtime-ktx:2.7.1")
+
+    androidTestImplementation(libs.androidx.junit)
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+
+    implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
 
 }

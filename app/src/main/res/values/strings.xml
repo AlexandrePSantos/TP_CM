@@ -1,3 +1,4 @@
+<!-- Stings Inglesas -->
 <resources>
     <string name="app_name">TrabPratico</string>
     <string name="action_settings">Settings</string>
@@ -8,15 +9,15 @@
     <string name="previous">Previous</string>
 
     <string name="lorem_ipsum">Example</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login Activity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Invalid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">Login failed</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
 
     <string name="logout">Logout</string>
@@ -31,11 +32,36 @@
     <string name="list_projects">List Projects</string>
     <string name="users">Users</string>
     <string name="add_users">Add Users</string>
-    <string name="list_users">list Users</string>
+    <string name="list_users">List Users</string>
     <string name="statistics">Statistics</string>
-    <string name="list_stats_user">list Statistics By User</string>
-    <string name="list_stats_project">list Statistics By Project</string>
-    <string name="list_stats_task">list Statistics By Task</string>
+    <string name="list_stats_user">List Statistics By User</string>
+    <string name="list_stats_project">List Statistics By Project</string>
+    <string name="list_stats_task">List Statistics By Task</string>
     <string name="pending_tasks">Pending Tasks</string>
-
+    <string name="select_project_manager">Select Project Manager</string>
+    <string name="save_project">Save Project</string>
+    <string name="end_date">End Date</string>
+    <string name="start_date">Start Date</string>
+    <string name="project_name">Project Name</string>
+    <string name="projetos_criados">Created Projects</string>
+    <string name="voltar">Back</string>
+    <string name="login">SIGN IN</string>
+    <string name="register">SIGN UP</string>
+    <string name="email">Email</string>
+    <string name="alterar_gestor">Change Manager</string>
+    <string name="update_project">Update Project</string>
+    <string name="delete_project">Delete Project</string>
+    <string name="update_user">Update User</string>
+    <string name="delete_user">Delete User</string>
+    <string name="associate_tasks_to_projects">Associate Tasks to Projects</string>
+    <string name="associate_users_to_tasks">Associate Users to Tasks</string>
+    <string name="view_project_tasks">View Project Tasks</string>
+    <string name="mark_project_as_completed">Mark Project as Completed</string>
+    <string name="evaluate_user_performance">Evaluate User Performance</string>
+    <string name="finished_tasks">Finished Tasks</string>
+    <string name="observation_name">Observation Name</string>
+    <string name="observation_content">Observation Content</string>
+    <string name="task_name">Task Name</string>
+    <string name="task_status">Task Status</string>
+    <string name="slide_content">Slide Content</string>
 </resources>

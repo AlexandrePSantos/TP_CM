@@ -109,7 +109,7 @@ class AdminFragment : Fragment() {
                 val email = inputEmail.text.toString()
                 val password = inputPassword.text.toString()
                 val idType =
-                    spinnerIdType.selectedItemPosition + 2 // Add 2 because your idType starts from 2
+                    spinnerIdType.selectedItemPosition + 1 // Add 2 because your idType starts from 1
                 val username = inputUsername.text.toString()
                 val name = inputName.text.toString()
                 addUser(name, username, email, password, idType)

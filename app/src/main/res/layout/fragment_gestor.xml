@@ -5,9 +5,9 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Card for Project Actions -->
+    <!-- Card for Pending Projects -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewProjects"
+        android:id="@+id/cardPendingProjects"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -23,39 +23,46 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Projects"
+                android:text="Pending Projects"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/buttonAssociateTasks"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPendingProject"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Associate Tasks to Projects" />
+                android:layout_marginTop="8dp" />
 
-            <Button
-                android:id="@+id/buttonAssociateUsers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Associate Users to Tasks" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/buttonViewProjectTasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View Project Tasks" />
+    <!-- Card for Finished Projects -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFinishedProjects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
 
-            <Button
-                android:id="@+id/buttonMarkProjectCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mark Project as Completed" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <Button
-                android:id="@+id/buttonEvaluatePerformance"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evaluate User Performance" />
+                android:text="Finished Projects"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFinishedProject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
