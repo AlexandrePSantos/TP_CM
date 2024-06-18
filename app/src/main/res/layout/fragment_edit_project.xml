@@ -5,45 +5,53 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Título "Alterar Gestor" -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Project Info"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:gravity="center"/>
+
+    <!-- EditText para o nome do projeto -->
     <EditText
         android:id="@+id/editTextProjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/project_name" />
 
+    <!-- EditText para a data de início -->
     <EditText
         android:id="@+id/editTextStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/start_date" />
 
+    <!-- EditText para a data de término -->
     <EditText
         android:id="@+id/editTextEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/end_date" />
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="@string/alterar_gestor"
-        android:textSize="15sp"
-        android:gravity="center" />
-
+    <!-- Spinner para selecionar o gerente do projeto -->
     <Spinner
         android:id="@+id/spinnerProjectManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
+    <!-- Botão para atualizar o projeto -->
     <Button
         android:id="@+id/buttonUpdateProject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/update_project" />
 
+    <!-- Botão para deletar o projeto -->
     <Button
         android:id="@+id/buttonDeleteProject"
         android:layout_width="match_parent"
