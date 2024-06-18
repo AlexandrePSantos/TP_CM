@@ -21,6 +21,12 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/buttonAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_user" />
+
+        <Button
             android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -84,4 +84,6 @@
     <string name="edit_user">Editar Utilizador</string>
     <string name="edit_project">Editar Projeto</string>
     <string name="create_project">Criar Projeto</string>
+    <string name="add_task">Criar Tarefa</string>
+    <string name="add_user">Associar utilizador</string>
 </resources>

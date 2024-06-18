@@ -20,6 +20,7 @@ import com.example.trabpratico.data.vm.ObsViewModel
 import com.example.trabpratico.network.*
 import com.example.trabpratico.ui.Gestor.ListObsActivity
 import com.example.trabpratico.ui.Gestor.ListUsersActivity
+import com.example.trabpratico.ui.activities.geral.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -240,6 +241,7 @@ class TaskActivity : AppCompatActivity() {
             seekBarCompletionRate.isEnabled = false
             buttonConfirm.visibility = View.GONE
             buttonAddObservation.visibility = View.GONE
+            buttonSync.visibility = View.GONE
         }
     }
 
@@ -276,6 +278,14 @@ class TaskActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@TaskActivity, "Task updated successfully", Toast.LENGTH_SHORT).show()
+                    if (idState == 3) {
+                        // Close the current activity and redirect to MainActivity
+                        val intent = Intent(this@TaskActivity, MainActivity::class.java).apply {
+                            putExtra("idtype", idType)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
                 } else {
                     Toast.makeText(this@TaskActivity, "Failed to update task", Toast.LENGTH_SHORT).show()
                 }

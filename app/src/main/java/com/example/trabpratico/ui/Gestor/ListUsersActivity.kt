@@ -3,6 +3,7 @@ package com.example.trabpratico.ui.Gestor
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
@@ -15,6 +16,7 @@ import com.example.trabpratico.network.ApiService
 import com.example.trabpratico.network.PerformanceRequest
 import com.example.trabpratico.network.UserDetailsResponse
 import com.example.trabpratico.network.UserTaskResponse
+import com.example.trabpratico.network.UserTaskRequest
 import com.example.trabpratico.ui.UserAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +45,12 @@ class ListUsersActivity : AppCompatActivity() {
 
         val buttonBack = findViewById<Button>(R.id.buttonBack)
         buttonBack.setOnClickListener {
-            finish() 
+            finish()
+        }
+
+        val buttonAddUser = findViewById<Button>(R.id.buttonAddUser)
+        buttonAddUser.setOnClickListener {
+            showAddUserDialog()
         }
 
         fetchUsers()
@@ -115,5 +122,58 @@ class ListUsersActivity : AppCompatActivity() {
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun showAddUserDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_usertask, null)
+        val userRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recyclerViewUsersDialog)
+        userRecyclerView.layoutManager = LinearLayoutManager(this)
+        val userDialogAdapter = UserAdapter(UserAdapter.UserClickListener { user ->
+            associateUserWithTask(user.iduser)
+        })
+        userRecyclerView.adapter = userDialogAdapter
+
+        apiService.getAllUsers().enqueue(object : Callback<List<UserDetailsResponse>> {
+            override fun onResponse(call: Call<List<UserDetailsResponse>>, response: Response<List<UserDetailsResponse>>) {
+                if (response.isSuccessful) {
+                    val users = response.body()
+                    userDialogAdapter.submitList(users ?: emptyList())
+                } else {
+                    Toast.makeText(this@ListUsersActivity, "Failed to load users", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserDetailsResponse>>, t: Throwable) {
+                Toast.makeText(this@ListUsersActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Add User to Task")
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun associateUserWithTask(userId: Int) {
+        val userTaskRequest = UserTaskRequest(
+            iduser = userId,
+            idtask = idTask
+        )
+
+        apiService.createUserTask(userTaskRequest).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ListUsersActivity, "User associated successfully", Toast.LENGTH_SHORT).show()
+                    fetchUsers() // Refresh the list
+                } else {
+                    Toast.makeText(this@ListUsersActivity, "Failed to associate user", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@ListUsersActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
