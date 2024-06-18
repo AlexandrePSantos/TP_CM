@@ -4,57 +4,91 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.trabpratico.R
+import com.example.trabpratico.adapter.TaskAdapter
+import com.example.trabpratico.network.ApiService
+import com.example.trabpratico.network.TaskResponse
+import com.example.trabpratico.network.UserTaskResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UtilizadorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UtilizadorFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var apiService: ApiService
+    private lateinit var pendingTasksAdapter: TaskAdapter
+    private lateinit var finishedTasksAdapter: TaskAdapter
+    private var userId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_utilizador, container, false)
+        val view = inflater.inflate(R.layout.fragment_utilizador, container, false)
+
+        apiService = RetrofitClient.instance
+        userId = RetrofitClient.getUserId() ?: -1
+
+        val recyclerViewPendingTasks = view.findViewById<RecyclerView>(R.id.recyclerViewPendingTasks)
+        recyclerViewPendingTasks.layoutManager = LinearLayoutManager(context)
+        pendingTasksAdapter = TaskAdapter()
+        recyclerViewPendingTasks.adapter = pendingTasksAdapter
+        recyclerViewPendingTasks.visibility = View.VISIBLE
+
+        val recyclerViewFinishedTasks = view.findViewById<RecyclerView>(R.id.recyclerViewFinishedTasks)
+        recyclerViewFinishedTasks.layoutManager = LinearLayoutManager(context)
+        finishedTasksAdapter = TaskAdapter()
+        recyclerViewFinishedTasks.adapter = finishedTasksAdapter
+        recyclerViewFinishedTasks.visibility = View.VISIBLE
+
+        fetchUserTasks()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UtilizadorFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UtilizadorFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchUserTasks() {
+        apiService.getUserTasks().enqueue(object : Callback<List<UserTaskResponse>> {
+            override fun onResponse(call: Call<List<UserTaskResponse>>, response: Response<List<UserTaskResponse>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { userTasks ->
+                        val userTaskIds = userTasks.filter { it.iduser == userId }.map { it.idtask }
+                        fetchTasks(userTaskIds)
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to load user tasks", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            override fun onFailure(call: Call<List<UserTaskResponse>>, t: Throwable) {
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun fetchTasks(userTaskIds: List<Int>) {
+        apiService.getAllTasks().enqueue(object : Callback<List<TaskResponse>> {
+            override fun onResponse(call: Call<List<TaskResponse>>, response: Response<List<TaskResponse>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { tasks ->
+                        val userTasks = tasks.filter { it.idtask in userTaskIds }
+                        val pendingTasks = userTasks.filter { it.idstate == 1 || it.idstate == 2 }
+                        val finishedTasks = userTasks.filter { it.idstate == 3 }
+
+                        pendingTasksAdapter.submitList(pendingTasks)
+                        finishedTasksAdapter.submitList(finishedTasks)
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to load tasks", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TaskResponse>>, t: Throwable) {
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Data binding variables -->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.CreateProjectActivity">
+
+        <EditText
+            android:id="@+id/editTextProjectName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Project Name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Start Date"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@id/editTextProjectName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="End Date"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@id/editTextStartDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerProjectManager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Select Project Manager"
+            app:layout_constraintTop_toBottomOf="@id/editTextEndDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+
+        <Button
+            android:id="@+id/buttonSaveProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Project"
+            app:layout_constraintTop_toBottomOf="@id/spinnerProjectManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,45 +7,8 @@
 
     <TextView
         android:id="@+id/textViewProjectName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Project Name"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewStartDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Date" />
-
-    <TextView
-        android:id="@+id/textViewEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="End Date" />
-
-    <TextView
-        android:id="@+id/textViewState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="State" />
-
-    <TextView
-        android:id="@+id/textViewCompletionStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Completion Status" />
-
-    <TextView
-        android:id="@+id/textViewPerformanceReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Performance Review" />
-
-    <TextView
-        android:id="@+id/textViewObs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Observations" />
-
+        android:textSize="16sp" />
 </LinearLayout>

@@ -35,4 +35,5 @@
     <string name="list_stats_user">Listar Estatísticas por Utilizador</string>
     <string name="list_stats_project">Listar Estatísticas por Projeto</string>
     <string name="list_stats_task">Listar Estatísticas por Tarefa</string>
+    <string name="pending_tasks">Tarefas Pendentes</string>
 </resources>

@@ -1,69 +1,42 @@
+package com.example.trabpratico.ui
+
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trabpratico.databinding.ItemProjectBinding
+import com.example.trabpratico.R
 import com.example.trabpratico.network.ProjectResponse
 
-class ProjectAdapter : ListAdapter<ProjectResponse, ProjectAdapter.ProjectViewHolder>(DiffCallback()) {
+class ProjectAdapter(private val onClick: (ProjectResponse) -> Unit) :
+    RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
 
-    interface OnItemClickListener {
-        fun onItemClick(project: ProjectResponse)
-    }
+    private var projectList: List<ProjectResponse> = listOf()
 
-    interface OnItemLongClickListener {
-        fun onItemLongClick(project: ProjectResponse): Boolean
-    }
-
-    private var listener: OnItemClickListener? = null
-    private var longClickListener: OnItemLongClickListener? = null
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
-
-    fun setOnItemLongClickListener(longClickListener: OnItemLongClickListener) {
-        this.longClickListener = longClickListener
+    fun submitList(projects: List<ProjectResponse>) {
+        projectList = projects
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val binding = ItemProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProjectViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_project, parent, false)
+        return ProjectViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
-        val currentItem = getItem(position)
-        holder.bind(currentItem)
-
-        holder.itemView.setOnClickListener {
-            listener?.onItemClick(currentItem)
-        }
-
-        holder.itemView.setOnLongClickListener {
-            longClickListener?.onItemLongClick(currentItem) ?: false
-        }
+        val project = projectList[position]
+        holder.bind(project)
+        holder.itemView.setOnClickListener { onClick(project) }
     }
 
-    class ProjectViewHolder(private val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int = projectList.size
+
+    class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val projectName: TextView = itemView.findViewById(R.id.textViewProjectName)
+
         fun bind(project: ProjectResponse) {
-            binding.textViewProjectName.text = project.nameproject
-            binding.textViewStartDate.text = project.startdatep
-            binding.textViewEndDate.text = project.enddatep
-            binding.textViewState.text = project.idstate.toString() // Consider converting state ID to state name if necessary
-            binding.textViewCompletionStatus.text = if (project.completionstatus) "Completed" else "Incomplete"
-            binding.textViewPerformanceReview.text = project.performancereview ?: "No review"
-            binding.textViewObs.text = project.obs ?: "No observations"
-        }
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<ProjectResponse>() {
-        override fun areItemsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem.idproject == newItem.idproject
-        }
-
-        override fun areContentsTheSame(oldItem: ProjectResponse, newItem: ProjectResponse): Boolean {
-            return oldItem == newItem
+            projectName.text = project.nameproject
         }
     }
 }
