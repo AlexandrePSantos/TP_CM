@@ -166,7 +166,7 @@ class ListUsersActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@ListUsersActivity, "User associated successfully", Toast.LENGTH_SHORT).show()
-                    fetchUsers() // Refresh the list
+                    fetchUsers()
                 } else {
                     Toast.makeText(this@ListUsersActivity, "Failed to associate user", Toast.LENGTH_SHORT).show()
                 }

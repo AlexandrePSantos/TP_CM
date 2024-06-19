@@ -83,7 +83,6 @@ class EditProjectFragment : Fragment() {
         }
 
         binding.buttonBack.setOnClickListener {
-            // Use the FragmentManager to pop the back stack
             parentFragmentManager.popBackStack()
         }
     }
@@ -136,13 +135,12 @@ class EditProjectFragment : Fragment() {
             override fun onResponse(call: Call<List<UserDetailsResponse>>, response: Response<List<UserDetailsResponse>>) {
                 if (response.isSuccessful) {
                     val allUsers = response.body() ?: emptyList()
-                    userList = allUsers.filter { it.idtype == 2 }  // Filtra apenas os usuários com idtype == 2 (gestores)
+                    userList = allUsers.filter { it.idtype == 2 }
                     val userNames = userList.map { it.username }
                     val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userNames)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     binding.spinnerProjectManager.adapter = adapter
 
-                    // Seleciona o gestor do projeto atual
                     val currentProjectManagerId = response.body()?.find { it.iduser == projectId }?.iduser
                     val position = userNames.indexOfFirst { it == currentProjectManagerId?.toString() }
 

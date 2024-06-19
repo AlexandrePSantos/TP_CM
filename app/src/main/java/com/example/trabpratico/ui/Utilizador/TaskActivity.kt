@@ -50,7 +50,7 @@ class TaskActivity : AppCompatActivity() {
     private var task: TaskResponse? = null
     private var projectId: Int = -1
     private var idState: Int = -1
-    private var idType: Int = -1 // Variable to store user type
+    private var idType: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +86,7 @@ class TaskActivity : AppCompatActivity() {
                     progress == 100 -> 3
                     else -> idState
                 }
-                loadState(idState) // Atualiza o estado com base no progresso
+                loadState(idState)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -162,7 +162,7 @@ class TaskActivity : AppCompatActivity() {
                         idState = it.idstate
                         loadProjectName(it.idproject)
                         loadObservations(it.idtask)
-                        loadState(it.idstate) // Adiciona chamada para carregar o estado
+                        loadState(it.idstate)
                         checkState(it.idstate)
                         checkUserType()
                     }

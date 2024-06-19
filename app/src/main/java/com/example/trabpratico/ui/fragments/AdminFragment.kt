@@ -39,7 +39,6 @@ class AdminFragment : Fragment() {
 
         val buttonAddProject = view.findViewById<Button>(R.id.buttonAddProject)
         buttonAddProject.setOnClickListener {
-            // Criar um Intent para iniciar CreateProjectActivity
             val intent = Intent(activity, CreateProjectActivity::class.java)
             startActivity(intent)
         }
@@ -97,7 +96,7 @@ class AdminFragment : Fragment() {
         val dialogView = inflater.inflate(R.layout.dialog_add_user, null)
         val inputEmail = dialogView.findViewById<EditText>(R.id.editTextEmail)
         val inputPassword = dialogView.findViewById<EditText>(R.id.editTextPassword).apply {
-            setText("123456") // Set default password
+            setText("123456")
         }
         val spinnerIdType = dialogView.findViewById<Spinner>(R.id.spinnerIdType)
         val inputUsername = dialogView.findViewById<EditText>(R.id.editTextUsername)
@@ -110,7 +109,7 @@ class AdminFragment : Fragment() {
                 val email = inputEmail.text.toString()
                 val password = inputPassword.text.toString()
                 val idType =
-                    spinnerIdType.selectedItemPosition + 1 // Add 2 because your idType starts from 1
+                    spinnerIdType.selectedItemPosition + 1
                 val username = inputUsername.text.toString()
                 val name = inputName.text.toString()
                 addUser(name, username, email, password, idType)

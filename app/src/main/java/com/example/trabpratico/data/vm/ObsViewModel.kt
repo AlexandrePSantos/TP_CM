@@ -29,18 +29,6 @@ class ObsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateObservation(observation: Observation) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateObservation(observation)
-        }
-    }
-
-    fun deleteObservation(observation: Observation) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteObservation(observation)
-        }
-    }
-
     fun syncObservations(apiService: ApiService, callback: (Boolean) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val unsyncedObservations = repository.getUnsyncedObservations()

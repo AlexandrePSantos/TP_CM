@@ -9,7 +9,7 @@ object RetrofitClient {
         "https://api-ihpzs9mgr-alexandres-projects-d97edc96.vercel.app/api/cm/"
 
     private var authToken: String? = null
-    private var userId: Int? = null // Adicione uma variável para armazenar o ID do usuário
+    private var userId: Int? = null
 
     fun setAuthToken(token: String?) {
         authToken = token

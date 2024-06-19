@@ -58,10 +58,8 @@ class ProfileActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val userDetailsResponse = response.body()
                         if (userDetailsResponse != null) {
-                            // Preencher os campos EditText com os dados do usuário
                             usernameEditText.setText(userDetailsResponse.username)
                             nameEditText.setText(userDetailsResponse.name)
-                            // Preencher o campo de senha com um valor placeholder
                             passwordEditText.hint = "••••••••"
                             passwordEditText.tag = userDetailsResponse.password
                             originalPassword = userDetailsResponse.password
@@ -160,12 +158,7 @@ class ProfileActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun changePhoto() {
-        // Implementar funcionalidade de troca de foto do perfil
-    }
-
     private fun logout() {
-        // Limpar dados do usuário (SharedPreferences, etc.)
         val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
             clear()

@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                                 RetrofitClient.setAuthToken(token)
                                 RetrofitClient.setUserId(userId)
 
-                                // Se o login for bem-sucedido, obtenha o tipo de usuário usando o token e o iduser
+                                // Se o login for bem-sucedido, obtenha o tipo de user com o token e o iduser
                                 getUserType()
                             } else {
                                 Log.e("LoginActivity", "Token is empty or null")
@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
                         } else {
                             // Se houver um erro na resposta, mostrar o popup de erro
                             showErrorPopup()
-                            // Registre o código de erro para depuração
                             Log.e("API Error", "Failed to login: ${response.code()}")
                         }
                     }
@@ -71,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         // Se houver uma falha na chamada, mostrar o popup de erro
                         showErrorPopup()
-                        // Registre a exceção para depuração
                         Log.e("API Error", "Login call failed", t)
                     }
                 })
@@ -83,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getUserType() {
-        // Obtenha o tipo de usuário após o login bem-sucedido
+        // Obter o tipo de user após o login bem-sucedido
         userId?.let {
             RetrofitClient.instance.getUserById(it).enqueue(object : Callback<UserDetailsResponse> {
                 override fun onResponse(
@@ -105,7 +103,6 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         // Se houver um erro na resposta, mostrar o popup de erro
                         showErrorPopup()
-                        // Registre o código de erro para depuração
                         Log.e("API Error", "Failed to get user details: ${response.code()}")
                     }
                 }
@@ -113,7 +110,6 @@ class LoginActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<UserDetailsResponse>, t: Throwable) {
                     // Se houver uma falha na chamada, mostrar o popup de erro
                     showErrorPopup()
-                    // Registre a exceção para depuração
                     Log.e("API Error", "Failed to get user details", t)
                 }
             })

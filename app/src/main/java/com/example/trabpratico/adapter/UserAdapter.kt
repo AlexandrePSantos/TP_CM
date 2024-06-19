@@ -28,7 +28,6 @@ class UserAdapter(private val clickListener: UserClickListener) : ListAdapter<Us
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = getItem(position)
-        // Log the user ID here
         Log.d("UserAdapter", "User ID at position $position: ${user.iduser}")
         holder.bind(user, clickListener)
     }

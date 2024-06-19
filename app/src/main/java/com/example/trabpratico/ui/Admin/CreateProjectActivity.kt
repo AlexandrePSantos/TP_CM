@@ -72,7 +72,7 @@ class CreateProjectActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<UserDetailsResponse>>, response: Response<List<UserDetailsResponse>>) {
                 if (response.isSuccessful) {
                     val allUsers = response.body() ?: emptyList()
-                    userList = allUsers.filter { it.idtype == 2 }  // Filtra apenas os usuários com idtype == 2 (gestores)
+                    userList = allUsers.filter { it.idtype == 2 }
                     val userNames = userList.map { it.username }
                     Log.d("CreateProjectActivity", "User Names: $userNames")
                     val adapter = ArrayAdapter(this@CreateProjectActivity, android.R.layout.simple_spinner_item, userNames)

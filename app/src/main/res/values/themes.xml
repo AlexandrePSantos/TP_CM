@@ -1,4 +1,5 @@
 <resources>
+    <color name="buttonColor">#303F9F</color>
     <!-- Base application theme. -->
     <style name="Base.Theme.TrabPratico" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,7 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
-        <color name="buttonColor">#303F9F</color>
+
     </style>
 
     <style name="Theme.TrabPratico" parent="Base.Theme.TrabPratico" />

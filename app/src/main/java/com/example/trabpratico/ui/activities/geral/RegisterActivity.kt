@@ -32,20 +32,16 @@ class RegisterActivity : AppCompatActivity() {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 
-            // Validação de campos e chamada de API para registrar o usuário
+            // Validação de campos e chamada de API para registar o user
             val request = RegisterRequest(name, username, email, password)
             RetrofitClient.instance.register(request)
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
-                            // Se o registro for bem-sucedido, mostrar o popup de sucesso
                             showSuccessPopup()
-                            // Redirecionar para a LoginActivity após o registro bem-sucedido
                             redirectToLogin()
                         } else {
-                            // Se houver um erro na resposta, mostrar o popup de erro
                             showErrorPopup()
-                            // Registre o código de erro para depuração
                             Log.e("API Error", "Failed to register: ${response.code()}")
                         }
                     }
@@ -53,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<Void>, t: Throwable) {
                         // Se houver uma falha na chamada, mostrar o popup de erro
                         showErrorPopup()
-                        // Registre a exceção para depuração
                         Log.e("API Error", "Registration call failed", t)
                     }
                 })

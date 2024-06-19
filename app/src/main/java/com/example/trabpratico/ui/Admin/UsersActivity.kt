@@ -56,7 +56,6 @@ class UsersActivity : AppCompatActivity() {
                     response.body()?.let {
                         userAdapter.submitList(it)
                     }
-                    // Log the raw API response
                     Log.d("UsersActivity", "API response: ${response.body()}")
 
                 } else {
