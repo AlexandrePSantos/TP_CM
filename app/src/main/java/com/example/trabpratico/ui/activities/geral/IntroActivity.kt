@@ -25,9 +25,9 @@ class IntroActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.btnRegister)
 
         val slides = listOf(
-            SlideItem(R.drawable.ic_slide1, "Welcome to our App!"),
-            SlideItem(R.drawable.ic_slide2, "Discover new features."),
-            SlideItem(R.drawable.ic_slide3, "Start using the app now.")
+            SlideItem(R.drawable.logi, "Welcome to our App!"),
+            SlideItem(R.drawable.logi, "Discover new features."),
+            SlideItem(R.drawable.logi, "Start using the app now.")
         )
 
         slideAdapter = SlideAdapter(slides)
